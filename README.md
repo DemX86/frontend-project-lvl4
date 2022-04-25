@@ -4,5 +4,5 @@
 ## About
 Work In Progress
 
-## Backend Server
-[Backend](https://l4-server.herokuapp.com/)
+## Demo
+[Live App Demo](https://hexlet-frontend-level4.herokuapp.com/)
