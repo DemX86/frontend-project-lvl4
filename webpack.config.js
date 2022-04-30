@@ -1,15 +1,16 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path from 'path';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const mode = process.env.NODE_ENV || 'development';
 
-module.exports = {
+export default {
   mode,
   resolve: {
     extensions: ['.js', '.jsx'],
   },
   output: {
-    path: path.join(__dirname, 'dist', 'public'),
+    clean: true,
+    path: path.resolve('dist', 'public'),
     publicPath: '/assets/',
   },
   devServer: {
@@ -19,6 +20,7 @@ module.exports = {
     // publicPath: '/assets/',
     historyApiFallback: true,
   },
+  devtool: 'source-map',
   plugins: [
     new MiniCssExtractPlugin(),
   ],
@@ -34,7 +36,16 @@ module.exports = {
         use: [
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
-          { loader: 'postcss-loader' },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  'postcss-preset-env',
+                ],
+              },
+            },
+          },
           { loader: 'sass-loader' },
         ],
       },
