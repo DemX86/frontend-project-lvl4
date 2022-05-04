@@ -13,8 +13,8 @@ const Home = () => {
   const ax = axios.create();
   ax.defaults.headers.common.Authorization = `Bearer ${user.token}`;
 
-  const dispatch = useDispatch();
   const inputRef = useRef();
+  const dispatch = useDispatch();
   const { channels, messages, currentChannelId } = useSelector((state) => state.chatData);
 
   const socket = useContext(SocketContext);
@@ -27,8 +27,6 @@ const Home = () => {
     };
     fetch()
       .catch(console.error);
-
-    inputRef.current.focus();
   }, []);
 
   const formik = useFormik({
@@ -109,6 +107,7 @@ const Home = () => {
                 <InputGroup>
                   <Form.Control
                     autoComplete="off"
+                    autoFocus
                     id="messageBody"
                     name="messageBody"
                     placeholder="Введите сообщение…"
