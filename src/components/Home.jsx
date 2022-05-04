@@ -29,10 +29,6 @@ const Home = () => {
       .catch(console.error);
 
     inputRef.current.focus();
-
-    socket.on('newMessage', (message) => {
-      dispatch(actions.addMessage(message));
-    });
   }, []);
 
   const formik = useFormik({
