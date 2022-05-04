@@ -62,7 +62,7 @@ const Home = () => {
     }
     return (
       channelMessages.map((message) => (
-        <div key={message.id}>
+        <div className="mb-1 text-break" key={message.id}>
           <strong>
             {message.username}
             :&nbsp;
@@ -96,7 +96,7 @@ const Home = () => {
         </Col>
         <Col className="bg-white p-0">
           <div className="d-flex flex-column h-100">
-            <div className="bg-light mb-4 p-3 shadow-sm">
+            <div className="bg-light mb-3 p-3 shadow-sm">
               <p className="m-0">Channel Info</p>
             </div>
 
