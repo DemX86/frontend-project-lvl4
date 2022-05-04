@@ -15,9 +15,11 @@ const Home = () => {
 
   const inputRef = useRef();
   const dispatch = useDispatch();
-  const { channels, messages, currentChannelId } = useSelector((state) => state.chatData);
 
   const socket = useContext(SocketContext);
+
+  const { channels, messages, currentChannelId } = useSelector((state) => state.chatData);
+  const channelMessages = messages.filter((message) => message.channelId === currentChannelId);
 
   useEffect(() => {
     const fetch = async () => {
@@ -44,13 +46,24 @@ const Home = () => {
     },
   });
 
-  const handleSwitchChannel = (channelId) => () => {
-    dispatch(actions.setCurrentChannelId(channelId));
-    inputRef.current.focus();
+  const renderChannelInfo = () => {
+    const currentChannel = channels.find((channel) => channel.id === currentChannelId);
+    if (!currentChannel) {
+      return null;
+    }
+    return (
+      <div className="bg-light mb-3 px-4 py-2 shadow-sm">
+        <p className="m-0">{currentChannel.name}</p>
+        <span className="small text-muted">
+          Сообщений:&nbsp;
+          {channelMessages.length}
+        </span>
+      </div>
+    );
+    // todo множественные числа
   };
 
   const renderMessages = () => {
-    const channelMessages = messages.filter((message) => message.channelId === currentChannelId);
     if (channelMessages.length === 0) {
       return (
         <div className="h-100 d-flex align-items-center justify-content-center">
@@ -69,6 +82,11 @@ const Home = () => {
         </div>
       ))
     );
+  };
+
+  const handleSwitchChannel = (channelId) => () => {
+    dispatch(actions.setCurrentChannelId(channelId));
+    inputRef.current.focus();
   };
 
   return (
@@ -94,9 +112,7 @@ const Home = () => {
         </Col>
         <Col className="bg-white p-0">
           <div className="d-flex flex-column h-100">
-            <div className="bg-light mb-3 p-3 shadow-sm">
-              <p className="m-0">Channel Info</p>
-            </div>
+            {renderChannelInfo()}
 
             <div className="h-100 px-4">
               {renderMessages()}
