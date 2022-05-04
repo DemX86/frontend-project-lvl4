@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
+
 import { Link } from 'react-router-dom';
 
 const Signup = () => {
@@ -14,8 +15,14 @@ const Signup = () => {
   });
 
   return (
-    <p>Signup Form</p>
+    <>
+      <p>Signup Form</p>
+      <div className="text-center">
+        <span>Уже зарегистрированы?&nbsp;</span>
+        <Link to="/login">Войдите</Link>
+      </div>
+    </>
   );
-}
+};
 
 export default Signup;

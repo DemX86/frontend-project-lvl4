@@ -1,17 +1,18 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { object, string } from 'yup';
+
+import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
-import useAuth from '../hooks/auth.jsx';
 
 const Login = () => {
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   const navigate = useNavigate();
-  const auth = useAuth();
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     if (auth.loggedIn) {
@@ -100,6 +101,7 @@ const Login = () => {
 
           <Button
             className="w-100 mb-3"
+            disabled={formik.isSubmitting}
             size="lg"
             type="submit"
             variant="primary"
