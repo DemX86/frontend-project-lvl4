@@ -2,13 +2,16 @@ import axios from 'axios';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { object, ref, string } from 'yup';
 import { useFormik } from 'formik';
+import { object, ref, string } from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const Signup = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'signupPage' });
+
   const [submitFailed, setSubmitFailed] = useState(false);
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
@@ -29,15 +32,15 @@ const Signup = () => {
     },
     validationSchema: object({
       username: string()
-        .required()
-        .min(3)
-        .max(20),
+        .required(t('errors.required'))
+        .min(3, t('errors.usernameMin'))
+        .max(20, t('errors.usernameMax')),
       password: string()
-        .required()
-        .min(6),
+        .required(t('errors.required'))
+        .min(6, t('errors.passwordMin')),
       confirmPassword: string()
-        .required()
-        .oneOf([ref('password')]),
+        .required(t('errors.required'))
+        .oneOf([ref('password')], t('errors.passwordsMatch')),
     }),
     onSubmit: async (values) => {
       try {
@@ -65,39 +68,39 @@ const Signup = () => {
       <Row className="h-100 justify-content-center align-content-center">
         <Col md={3}>
           <Form className="mb-2" onSubmit={formik.handleSubmit}>
-            <h1 className="text-center mb-4">Регистрация</h1>
+            <h1 className="text-center mb-4">{t('title')}</h1>
 
             <Form.FloatingLabel
               className="mb-3"
               controlId="username"
-              label="Имя пользователя"
+              label={t('username')}
             >
               <Form.Control
                 isInvalid={invalidUsername || submitFailed}
                 name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder="Имя пользователя"
+                placeholder={t('username')}
                 ref={inputRef}
                 required
                 value={formik.values.username}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {formik.errors.username || 'Это имя пользователя занято'}
+                {formik.errors.username || t('submitError')}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 
             <Form.FloatingLabel
               className="mb-3"
               controlId="password"
-              label="Пароль"
+              label={t('password')}
             >
               <Form.Control
                 isInvalid={invalidPassword}
                 name="password"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder="Пароль"
+                placeholder={t('password')}
                 required
                 type="password"
                 value={formik.values.password}
@@ -110,14 +113,14 @@ const Signup = () => {
             <Form.FloatingLabel
               className="mb-3"
               controlId="confirmPassword"
-              label="Подтвердите пароль"
+              label={t('confirmPassword')}
             >
               <Form.Control
                 isInvalid={invalidConfirmPassword}
                 name="confirmPassword"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder="Подтвердите пароль"
+                placeholder={t('confirmPassword')}
                 required
                 type="password"
                 value={formik.values.confirmPassword}
@@ -134,13 +137,16 @@ const Signup = () => {
               type="submit"
               variant="primary"
             >
-              Зарегистрироваться
+              {t('button')}
             </Button>
           </Form>
 
           <div className="text-center">
-            <span>Уже зарегистрированы?&nbsp;</span>
-            <Link to="/login">Войдите</Link>
+            <span>
+              {t('hasAccount')}
+              &nbsp;
+            </span>
+            <Link to="/login">{t('loginLink')}</Link>
           </div>
         </Col>
       </Row>

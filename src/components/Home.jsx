@@ -14,6 +14,7 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import { actions as channelActions } from '../slices/channelsDataSlice.js';
 import { actions as messageActions } from '../slices/messagesDataSlice.js';
@@ -23,6 +24,8 @@ import SocketContext from '../contexts/socket.js';
 import getModal from './modals/getModal.js';
 
 const Home = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'homePage' });
+
   const dispatch = useDispatch();
   const inputRef = useRef();
   const socket = useContext(SocketContext);
@@ -147,12 +150,10 @@ const Home = () => {
       <div className="bg-light mb-3 px-4 py-2 shadow-sm">
         <p className="m-0">{currentChannel.name}</p>
         <span className="small text-muted">
-          Сообщений:&nbsp;
-          {activeChannelMessages.length}
+          {t('messagesCount.key', { count: activeChannelMessages.length })}
         </span>
       </div>
     );
-    // todo множественные числа
   };
 
   const renderMessages = () => {
@@ -182,7 +183,7 @@ const Home = () => {
         <Row className="h-100">
           <Col className="border-end" md={2}>
             <Stack className="mt-3 mb-2" direction="horizontal">
-              <span className="ms-1 mb-0"><strong>Каналы</strong></span>
+              <span className="ms-1 mb-0"><strong>{t('channels')}</strong></span>
               <Button
                 className="ms-auto"
                 onClick={handleShowModal('addChannel')}
@@ -194,11 +195,12 @@ const Home = () => {
             </Stack>
             {renderChannels()}
           </Col>
-          <Col className="bg-white p-0">
+
+          <Col className="bg-white h-100 p-0">
             <div className="d-flex flex-column h-100">
               {renderChannelInfo()}
 
-              <div className="h-100 px-4">
+              <div className="h-100 overflow-auto px-4">
                 {renderMessages()}
               </div>
 
@@ -209,7 +211,7 @@ const Home = () => {
                       autoComplete="off"
                       id="messageBody"
                       name="messageBody"
-                      placeholder="Введите сообщение…"
+                      placeholder={t('placeholder')}
                       ref={inputRef}
                       onChange={formik.handleChange}
                       value={formik.values.messageBody}
@@ -218,7 +220,7 @@ const Home = () => {
                       disabled={formik.isSubmitting || !formik.dirty}
                       type="submit"
                     >
-                      Отправить
+                      {t('send')}
                     </Button>
                   </InputGroup>
                 </Form>
@@ -235,3 +237,5 @@ const Home = () => {
 };
 
 export default Home;
+
+// todo скроллить вниз при добавлении нового сообщения

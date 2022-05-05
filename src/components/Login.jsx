@@ -3,11 +3,14 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const Login = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'loginPage' });
+
   const [submitFailed, setSubmitFailed] = useState(false);
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
@@ -47,19 +50,19 @@ const Login = () => {
       <Row className="h-100 justify-content-center align-content-center">
         <Col md={3}>
           <Form className="mb-2" onSubmit={formik.handleSubmit}>
-            <h1 className="text-center mb-4">Вход</h1>
+            <h1 className="text-center mb-4">{t('title')}</h1>
 
             <Form.FloatingLabel
               className="mb-3"
               controlId="username"
-              label="Имя пользователя"
+              label={t('username')}
             >
               <Form.Control
                 isInvalid={submitFailed}
                 name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder="Имя пользователя"
+                placeholder={t('username')}
                 ref={inputRef}
                 required
                 value={formik.values.username}
@@ -69,20 +72,20 @@ const Login = () => {
             <Form.FloatingLabel
               className="mb-3"
               controlId="password"
-              label="Пароль"
+              label={t('password')}
             >
               <Form.Control
                 isInvalid={submitFailed}
                 name="password"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder="Пароль"
+                placeholder={t('password')}
                 required
                 type="password"
                 value={formik.values.password}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {formik.errors.password || 'Неверные имя пользователя и/или пароль'}
+                {formik.errors.password || t('submitError')}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 
@@ -93,13 +96,16 @@ const Login = () => {
               type="submit"
               variant="primary"
             >
-              Войти
+              {t('button')}
             </Button>
           </Form>
 
           <div className="text-center">
-            <span>Нет аккаунта?&nbsp;</span>
-            <Link to="/signup">Зарегистрируйтесь</Link>
+            <span>
+              {t('noAccount')}
+              &nbsp;
+            </span>
+            <Link to="/signup">{t('signupLink')}</Link>
           </div>
         </Col>
       </Row>

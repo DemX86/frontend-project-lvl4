@@ -1,34 +1,35 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
+import { object, string } from 'yup';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 
 import SocketContext from '../../contexts/socket.js';
 
 const AddChannelModal = ({ handleCloseModal }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'modals.addChannel' });
+
   const socket = useContext(SocketContext);
 
   const { channels } = useSelector((state) => state.channelsData);
+  const channelNames = channels.map((channel) => channel.name);
 
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  const validate = (values) => {
-    const errors = {};
-    if (channels.some((channel) => channel.name === values.name.trim())) {
-      errors.name = 'Канал с таким именем уже существует';
-    }
-    return errors;
-  };
-
   const formik = useFormik({
     initialValues: {
       name: '',
     },
-    validate,
+    validationSchema: object({
+      name: string()
+        .trim()
+        .notOneOf(channelNames, t('errors.alreadyExists')),
+    }),
     onSubmit: (values) => {
       const channel = {
         name: values.name.trim(),
@@ -41,7 +42,7 @@ const AddChannelModal = ({ handleCloseModal }) => {
   return (
     <Modal show onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Создание канала</Modal.Title>
+        <Modal.Title>{t('title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -52,7 +53,7 @@ const AddChannelModal = ({ handleCloseModal }) => {
               isInvalid={Boolean(formik.errors.name)}
               name="name"
               onChange={formik.handleChange}
-              placeholder="Введите название нового канала"
+              placeholder={t('placeholder')}
               ref={inputRef}
               required
               value={formik.values.name}
@@ -66,14 +67,14 @@ const AddChannelModal = ({ handleCloseModal }) => {
               onClick={handleCloseModal}
               variant="secondary"
             >
-              Отмена
+              {t('cancel')}
             </Button>
             <Button
               disabled={formik.isSubmitting || !isEmpty(formik.errors) || !formik.dirty}
               type="submit"
               variant="primary"
             >
-              Создать
+              {t('submit')}
             </Button>
           </Modal.Footer>
         </Form>

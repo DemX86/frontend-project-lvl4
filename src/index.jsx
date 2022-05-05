@@ -9,6 +9,7 @@ import { Provider, useDispatch } from 'react-redux';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
+import './i18n';
 import App from './components/App.jsx';
 import { actions as channelActions } from './slices/channelsDataSlice.js';
 import { actions as messageActions } from './slices/messagesDataSlice.js';

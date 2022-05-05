@@ -2,10 +2,13 @@ import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import SocketContext from '../../contexts/socket.js';
 
 const RemoveChannelModal = ({ handleCloseModal }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'modals.removeChannel' });
+
   const socket = useContext(SocketContext);
 
   const { channels } = useSelector((state) => state.channelsData);
@@ -23,11 +26,12 @@ const RemoveChannelModal = ({ handleCloseModal }) => {
   return (
     <Modal show onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Удаление канала</Modal.Title>
+        <Modal.Title>{t('title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
-          Вы действительно хотите удалить канал&nbsp;
+          {t('confirm')}
+          &nbsp;
           <strong>{currentChannel.name}</strong>
           ?
         </p>
@@ -37,14 +41,14 @@ const RemoveChannelModal = ({ handleCloseModal }) => {
               onClick={handleCloseModal}
               variant="secondary"
             >
-              Отмена
+              {t('cancel')}
             </Button>
             <Button
               disabled={formik.isSubmitting}
               type="submit"
               variant="danger"
             >
-              Удалить
+              {t('submit')}
             </Button>
           </Modal.Footer>
         </Form>
