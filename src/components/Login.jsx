@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,10 +13,12 @@ const Login = () => {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
+  const inputRef = useRef();
   useEffect(() => {
     if (auth.loggedIn) {
       navigate('/');
     }
+    inputRef.current.focus();
   }, []);
 
   const formik = useFormik({
@@ -63,12 +65,12 @@ const Login = () => {
             label="Имя пользователя"
           >
             <Form.Control
-              autoFocus
               isInvalid={authFailed || invalidUsername}
               name="username"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               placeholder="Имя пользователя"
+              ref={inputRef}
               required
               value={formik.values.username}
             />

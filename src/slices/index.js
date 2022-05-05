@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import chatDataReducer from './chatData.js';
+import channelsDataReducer from './channelsDataSlice.js';
+import messagesDataReducer from './messagesDataSlice.js';
+import modalDataReducer from './modalDataSlice.js';
 
 const store = configureStore({
   reducer: {
-    chatData: chatDataReducer,
+    channelsData: channelsDataReducer,
+    messagesData: messagesDataReducer,
+    modalData: modalDataReducer,
   },
 });
 
