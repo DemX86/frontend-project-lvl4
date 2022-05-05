@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import SocketContext from '../contexts/socket.js';
+import SocketContext from '../../contexts/socket.js';
 
 const RemoveChannelModal = ({ handleCloseModal }) => {
   const socket = useContext(SocketContext);

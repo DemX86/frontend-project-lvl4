@@ -20,7 +20,7 @@ import { actions as messageActions } from '../slices/messagesDataSlice.js';
 import { actions as modalActions } from '../slices/modalDataSlice.js';
 import routes from '../routes.js';
 import SocketContext from '../contexts/socket.js';
-import getModal from '../modals/getModal.js';
+import getModal from './modals/getModal.js';
 
 const Home = () => {
   const dispatch = useDispatch();

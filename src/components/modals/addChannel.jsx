@@ -4,7 +4,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import SocketContext from '../contexts/socket.js';
+import SocketContext from '../../contexts/socket.js';
 
 const AddChannelModal = ({ handleCloseModal }) => {
   const socket = useContext(SocketContext);
