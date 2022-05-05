@@ -3,7 +3,6 @@ import { initReactI18next } from 'react-i18next';
 
 import resources from './locales/index.js';
 
-// todo что делать с promise
 i18n
   .use(initReactI18next)
   .init({
@@ -15,3 +14,5 @@ i18n
   });
 
 export default i18n;
+
+// todo что делать с promise
