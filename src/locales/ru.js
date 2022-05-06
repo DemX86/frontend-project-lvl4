@@ -8,12 +8,12 @@ export default {
     },
     loginPage: {
       title: 'Вход',
-      username: 'Имя пользователя',
+      username: 'Ваш ник',
       password: 'Пароль',
       button: 'Войти',
       noAccount: 'Нет аккаунта?',
-      signupLink: 'Зарегистрируйтесь',
-      submitError: 'Неверное имя пользователя и/или пароль',
+      signupLink: 'Регистрация',
+      submitError: 'Неверные имя пользователя или пароль',
     },
     signupPage: {
       title: 'Регистрация',
@@ -26,9 +26,8 @@ export default {
       submitError: 'Это имя пользователя занято',
       errors: {
         required: 'Поле обязательно к заполнению',
-        usernameMin: 'Минимальная длина имени пользователя: ${min}',
-        usernameMax: 'Максимальная длина имени пользователя: ${max}',
-        passwordMin: 'Минимальная длина пароля: ${min}',
+        usernameLength: 'От 3 до 20 символов',
+        passwordMin: 'Не менее 6 символов',
         passwordsMatch: 'Пароли должны совпадать',
       },
     },
@@ -44,7 +43,7 @@ export default {
       empty: 'В этом чате пока нет сообщений',
       placeholder: 'Введите сообщение…',
       send: 'Отправить',
-      loadingErrorToast: 'Ошибка загрузки данных',
+      loadingErrorToast: 'Ошибка соединения',
     },
     notFoundPage: {
       notFound: 'Страница не найдена',
@@ -81,7 +80,7 @@ export default {
       channelCreated: 'Канал создан',
       channelRenamed: 'Канал переименован',
       channelRemoved: 'Канал удалён',
-      connectionError: 'Ошибка подключения',
+      connectionError: 'Ошибка соединения',
     },
   },
 };
