@@ -14,6 +14,7 @@ import {
   Row,
   Stack,
 } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 import { actions as channelActions } from '../slices/channelsDataSlice.js';
@@ -50,7 +51,10 @@ const Home = () => {
       dispatch(messageActions.setMessages(initialData.messages));
     };
     fetch()
-      .catch(console.error);
+      .catch((error) => {
+        console.error(error);
+        toast.error(t('loadingErrorToast'));
+      });
   }, []);
 
   const formik = useFormik({

@@ -43,6 +43,7 @@ export default {
       },
       placeholder: 'Введите сообщение…',
       send: 'Отправить',
+      loadingErrorToast: 'Ошибка загрузки данных',
     },
     notFoundPage: {
       notFound: 'Страница не найдена',
@@ -74,6 +75,12 @@ export default {
         cancel: 'Отмена',
         submit: 'Удалить',
       },
+    },
+    socketToasts: {
+      channelCreated: 'Канал создан',
+      channelRenamed: 'Канал переименован',
+      channelRemoved: 'Канал удалён',
+      connectionError: 'Ошибка подключения',
     },
   },
 };
