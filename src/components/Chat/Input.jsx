@@ -41,6 +41,7 @@ const Input = ({ props }) => {
             id="body"
             name="body"
             placeholder={t('placeholder')}
+            aria-label={t('ariaLabel')}
             ref={inputRef}
             onChange={formik.handleChange}
             value={formik.values.body}

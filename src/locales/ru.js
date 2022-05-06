@@ -42,6 +42,7 @@ export default {
       },
       empty: 'В этом чате пока нет сообщений',
       placeholder: 'Введите сообщение…',
+      ariaLabel: 'Новое сообщение',
       send: 'Отправить',
       loadingErrorToast: 'Ошибка соединения',
     },
