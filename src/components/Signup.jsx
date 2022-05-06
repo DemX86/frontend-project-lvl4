@@ -86,7 +86,7 @@ const Signup = () => {
                 value={formik.values.username}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {formik.errors.username || t('submitError')}
+                {submitFailed ? t('submitError') : formik.errors.username}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 

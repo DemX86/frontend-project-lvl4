@@ -85,7 +85,7 @@ const Login = () => {
                 value={formik.values.password}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {formik.errors.password || t('submitError')}
+                {submitFailed ? t('submitError') : null}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 
