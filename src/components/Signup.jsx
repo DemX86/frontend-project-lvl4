@@ -16,7 +16,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   useEffect(() => {
     if (auth.loggedIn) {
       navigate('/');

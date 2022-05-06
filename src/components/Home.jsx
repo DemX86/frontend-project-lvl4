@@ -32,7 +32,6 @@ const Home = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'homePage' });
 
   const dispatch = useDispatch();
-  const inputRef = useRef();
   const socket = useContext(SocketContext);
 
   const user = JSON.parse(localStorage.getItem('user'));
@@ -44,6 +43,7 @@ const Home = () => {
   const { activeModalType } = useSelector((state) => state.modalData);
   const activeChannelMessages = messages.filter((message) => message.channelId === activeChannelId);
 
+  const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.focus();
     const fetch = async () => {
@@ -60,6 +60,11 @@ const Home = () => {
         toast.error(t('loadingErrorToast'));
       });
   }, []);
+
+  const messagesBottomRef = useRef(null);
+  useEffect(() => {
+    messagesBottomRef.current.scrollIntoView();
+  }, [activeChannelId, messages]);
 
   const formik = useFormik({
     initialValues: {
@@ -167,21 +172,27 @@ const Home = () => {
   const renderMessages = () => {
     if (activeChannelMessages.length === 0) {
       return (
-        <div className="h-100 d-flex align-items-center justify-content-center">
-          <span className="small text-muted">В этом чате пока нет сообщений</span>
-        </div>
+        <>
+          <div className="h-100 d-flex align-items-center justify-content-center">
+            <span className="small text-muted">{t('empty')}</span>
+          </div>
+          <div ref={messagesBottomRef} />
+        </>
       );
     }
     return (
-      activeChannelMessages.map((message) => (
-        <div className="mb-1 text-break" key={message.id}>
-          <strong>
-            {message.username}
-            :&nbsp;
-          </strong>
-          {message.body}
-        </div>
-      ))
+      <>
+        {activeChannelMessages.map((message) => (
+          <div className="mb-1 text-break" key={message.id}>
+            <strong>
+              {message.username}
+              :&nbsp;
+            </strong>
+            {message.body}
+          </div>
+        ))}
+        <div ref={messagesBottomRef} />
+      </>
     );
   };
 
@@ -246,5 +257,4 @@ const Home = () => {
 
 export default Home;
 
-// todo скроллить вниз при добавлении нового сообщения
 // todo разнести на разные компоненты/файлы

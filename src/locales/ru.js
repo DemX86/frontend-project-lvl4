@@ -41,6 +41,7 @@ export default {
         key_many: '{{count}} сообщений',
         key_other: '{{count}} сообщений',
       },
+      empty: 'В этом чате пока нет сообщений',
       placeholder: 'Введите сообщение…',
       send: 'Отправить',
       loadingErrorToast: 'Ошибка загрузки данных',

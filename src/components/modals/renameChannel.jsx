@@ -19,7 +19,7 @@ const RenameChannelModal = ({ handleCloseModal }) => {
   const channelNames = channels.map((channel) => channel.name);
   const currentChannel = channels.find((channel) => channel.id === modalChannelId);
 
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.select();
   }, []);

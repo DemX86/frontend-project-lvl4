@@ -16,7 +16,7 @@ const AddChannelModal = ({ handleCloseModal }) => {
   const { channels } = useSelector((state) => state.channelsData);
   const channelNames = channels.map((channel) => channel.name);
 
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.focus();
   }, []);
