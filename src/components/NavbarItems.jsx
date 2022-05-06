@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Button, Container, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import AuthContext from '../contexts/auth.js';
@@ -11,7 +12,7 @@ const NavbarItems = () => {
 
   return (
     <Container>
-      <Navbar.Brand href="/">
+      <Navbar.Brand as={Link} to="/">
         {t('project')}
       </Navbar.Brand>
       {auth.loggedIn
