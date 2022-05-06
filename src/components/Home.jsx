@@ -16,6 +16,7 @@ import {
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 
 import { actions as channelActions } from '../slices/channelsDataSlice.js';
 import { actions as messageActions } from '../slices/messagesDataSlice.js';
@@ -23,6 +24,13 @@ import { actions as modalActions } from '../slices/modalDataSlice.js';
 import routes from '../routes.js';
 import SocketContext from '../contexts/socket.js';
 import getModal from './modals/getModal.js';
+
+const censorText = (textRaw) => {
+  filter.loadDictionary('ru');
+  const textFiltered = filter.clean(textRaw);
+  filter.loadDictionary('en');
+  return filter.clean(textFiltered);
+};
 
 const Home = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'homePage' });
@@ -63,7 +71,7 @@ const Home = () => {
     },
     onSubmit: (values, { resetForm }) => {
       const message = {
-        body: values.messageBody,
+        body: censorText(values.messageBody),
         channelId: activeChannelId,
         username: user.username,
       };
