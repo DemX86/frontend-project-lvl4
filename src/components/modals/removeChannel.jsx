@@ -32,7 +32,7 @@ const RemoveChannelModal = ({ handleCloseModal }) => {
         <p>
           {t('confirm')}
           &nbsp;
-          <strong>{currentChannel.name}</strong>
+          <strong>{currentChannel?.name}</strong>
           ?
         </p>
         <Form onSubmit={formik.handleSubmit}>
