@@ -54,6 +54,7 @@ export default {
     modals: {
       addChannel: {
         title: 'Создание канала',
+        label: 'Имя канала',
         placeholder: 'Введите название нового канала',
         cancel: 'Отмена',
         submit: 'Создать',
@@ -63,6 +64,7 @@ export default {
       },
       renameChannel: {
         title: 'Смена названия канала',
+        label: 'Имя канала',
         placeholder: 'Введите новое название канала',
         cancel: 'Отмена',
         submit: 'Переименовать',
