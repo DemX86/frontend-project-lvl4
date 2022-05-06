@@ -64,7 +64,7 @@ const SocketProvider = ({ children }) => {
 
 injectStyle();
 
-const container = document.getElementById('app');
+const container = document.getElementById('chat');
 ReactDOM.render(
   <RollbarProvider config={rollbarConfig}>
     <ErrorBoundary>
