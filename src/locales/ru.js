@@ -57,7 +57,7 @@ export default {
         label: 'Имя канала',
         placeholder: 'Введите название нового канала',
         cancel: 'Отмена',
-        submit: 'Создать',
+        submit: 'Отправить',
         errors: {
           alreadyExists: 'Канал с таким именем уже существует',
         },
@@ -67,7 +67,7 @@ export default {
         label: 'Имя канала',
         placeholder: 'Введите новое название канала',
         cancel: 'Отмена',
-        submit: 'Переименовать',
+        submit: 'Отправить',
         errors: {
           alreadyExists: 'Канал с таким именем уже существует',
         },
