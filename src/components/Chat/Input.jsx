@@ -9,7 +9,11 @@ filter.loadDictionary('ru');
 filter.add(filter.getDictionary('en'));
 
 const Input = ({ props }) => {
-  const { activeChannelId, t, username } = props;
+  const {
+    activeChannelId,
+    t,
+    username,
+  } = props;
   const socket = useContext(SocketContext);
 
   const inputRef = useRef(null);

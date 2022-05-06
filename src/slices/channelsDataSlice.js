@@ -7,23 +7,37 @@ const channelsDataSlice = createSlice({
     activeChannelId: null,
   },
   reducers: {
-    setChannels: (state, action) => {
-      state.channels = action.payload;
-    },
-    setActiveChannelId: (state, action) => {
-      state.activeChannelId = action.payload;
-    },
-    addChannel: (state, action) => {
-      state.channels.push(action.payload);
-    },
+    setChannels: (state, action) => ({
+      ...state,
+      channels: action.payload,
+    }),
+    setActiveChannelId: (state, action) => ({
+      ...state,
+      activeChannelId: action.payload,
+    }),
+    addChannel: (state, action) => ({
+      ...state,
+      channels: [...state.channels, action.payload],
+    }),
     renameChannel: (state, action) => {
-      const { id, name } = action.payload;
-      const channelToRename = state.channels.find((channel) => channel.id === id);
-      channelToRename.name = name;
+      const renamedChannel = action.payload;
+      const channels = state.channels.map((channel) => {
+        if (channel.id === renamedChannel.id) {
+          return renamedChannel;
+        }
+        return channel;
+      });
+      return {
+        ...state,
+        channels,
+      };
     },
     removeChannel: (state, action) => {
       const { id } = action.payload;
-      state.channels = state.channels.filter((channel) => channel.id !== id);
+      return {
+        ...state,
+        channels: state.channels.filter((channel) => channel.id !== id),
+      };
     },
   },
 });

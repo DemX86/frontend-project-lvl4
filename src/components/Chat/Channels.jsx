@@ -1,12 +1,23 @@
 import React from 'react';
-import { Button, ButtonGroup, Col, Dropdown, Nav, Stack } from 'react-bootstrap';
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  Dropdown,
+  Nav,
+  Stack,
+} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import { actions as channelActions } from '../../slices/channelsDataSlice.js';
 import { actions as modalActions } from '../../slices/modalDataSlice.js';
 
 const Channels = ({ props }) => {
-  const { activeChannelId, channels, t } = props;
+  const {
+    activeChannelId,
+    channels,
+    t,
+  } = props;
   const dispatch = useDispatch();
 
   const handleSwitchChannel = (channelId) => () => {

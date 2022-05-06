@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 
 const Messages = ({ props }) => {
-  const { activeChannelId, channels, messages, t } = props;
+  const {
+    activeChannelId,
+    channels,
+    messages,
+    t,
+  } = props;
   const activeChannelMessages = messages.filter((message) => message.channelId === activeChannelId);
 
   const messagesBottomRef = useRef(null);

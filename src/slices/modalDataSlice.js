@@ -8,9 +8,14 @@ const modalDataSlice = createSlice({
   },
   reducers: {
     setModalData: (state, action) => {
-      const { activeModalType, modalChannelId } = action.payload;
-      state.activeModalType = activeModalType;
-      state.modalChannelId = modalChannelId;
+      const {
+        activeModalType,
+        modalChannelId,
+      } = action.payload;
+      return {
+        activeModalType,
+        modalChannelId,
+      };
     },
   },
 });
