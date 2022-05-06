@@ -25,12 +25,8 @@ import routes from '../routes.js';
 import SocketContext from '../contexts/socket.js';
 import getModal from './modals/getModal.js';
 
-const censorText = (textRaw) => {
-  filter.loadDictionary('ru');
-  const textFiltered = filter.clean(textRaw);
-  filter.loadDictionary('en');
-  return filter.clean(textFiltered);
-};
+filter.loadDictionary('ru');
+filter.add(filter.getDictionary('en'));
 
 const Home = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'homePage' });
@@ -71,7 +67,7 @@ const Home = () => {
     },
     onSubmit: (values, { resetForm }) => {
       const message = {
-        body: censorText(values.messageBody),
+        body: filter.clean(values.messageBody),
         channelId: activeChannelId,
         username: user.username,
       };
