@@ -31,7 +31,7 @@ export default {
         passwordsMatch: 'Пароли должны совпадать',
       },
     },
-    homePage: {
+    chatPage: {
       channels: 'Каналы',
       messagesCount: {
         key_zero: '{{count}} сообщений',

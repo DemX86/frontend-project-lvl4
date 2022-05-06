@@ -3,11 +3,11 @@ import { Navbar } from 'react-bootstrap';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import AuthContext from '../contexts/auth.js';
-import Home from './Home.jsx';
+import Chat from './Chat.jsx';
 import Login from './Login.jsx';
+import NavbarItems from './NavbarItems.jsx';
 import NotFound from './NotFound.jsx';
 import Signup from './Signup.jsx';
-import NavbarItems from './NavbarItems.jsx';
 
 const AuthProvider = ({ children }) => {
   const initialState = Boolean(localStorage.getItem('user'));
@@ -47,7 +47,7 @@ const App = () => (
           path="/"
           element={(
             <PrivateRoute>
-              <Home />
+              <Chat />
             </PrivateRoute>
           )}
         />
