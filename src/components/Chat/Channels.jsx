@@ -57,7 +57,9 @@ const Channels = ({ props }) => {
                     className="border-0 rounded-0"
                     split
                     variant="outline-secondary"
-                  />
+                  >
+                    <span className="visually-hidden">{t('channelControl')}</span>
+                  </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item
                       as={Button}

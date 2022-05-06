@@ -33,6 +33,7 @@ export default {
     },
     chatPage: {
       channels: 'Каналы',
+      channelControl: 'Управление каналом',
       messagesCount: {
         key_zero: '{{count}} сообщений',
         key_one: '{{count}} сообщение',
