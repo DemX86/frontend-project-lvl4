@@ -36,16 +36,7 @@ export default {
         use: [
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  'postcss-preset-env',
-                ],
-              },
-            },
-          },
+          { loader: 'postcss-loader' },
           { loader: 'sass-loader' },
         ],
       },

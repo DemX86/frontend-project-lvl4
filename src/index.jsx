@@ -5,8 +5,9 @@ import '../assets/application.scss';
 
 import { io } from 'socket.io-client';
 import React from 'react';
-import { Provider, useDispatch } from 'react-redux';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
+import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
+import { Provider as ReduxProvider, useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
@@ -20,6 +21,11 @@ import store from './slices/index.js';
 import SocketContext from './contexts/socket.js';
 
 const DEFAULT_CHANNEL_ID = 1;
+
+const rollbarConfig = {
+  accessToken: '3d4990a9b75c4bd88be6a2790b89b1a5',
+  environment: 'production',
+};
 
 const SocketProvider = ({ children }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'socketToasts' });
@@ -59,14 +65,18 @@ const SocketProvider = ({ children }) => {
 injectStyle();
 
 const container = document.getElementById('app');
-const root = createRoot(container);
-root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <SocketProvider>
-        <App />
-        <ToastContainer />
-      </SocketProvider>
-    </BrowserRouter>
-  </Provider>,
+ReactDOM.render(
+  <RollbarProvider config={rollbarConfig}>
+    <ErrorBoundary>
+      <ReduxProvider store={store}>
+        <BrowserRouter>
+          <SocketProvider>
+            <App />
+            <ToastContainer />
+          </SocketProvider>
+        </BrowserRouter>
+      </ReduxProvider>
+    </ErrorBoundary>
+  </RollbarProvider>,
+  container,
 );

@@ -14,5 +14,3 @@ i18n
   });
 
 export default i18n;
-
-// todo что делать с promise
