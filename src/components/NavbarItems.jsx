@@ -6,9 +6,8 @@ import { useTranslation } from 'react-i18next';
 import AuthContext from '../contexts/auth.js';
 
 const NavbarItems = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'navbar' });
-
   const auth = useContext(AuthContext);
+  const { t } = useTranslation('translation', { keyPrefix: 'navbar' });
 
   return (
     <Container>

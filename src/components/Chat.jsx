@@ -9,7 +9,6 @@ import { actions as channelActions } from '../slices/channelsDataSlice.js';
 import { actions as messageActions } from '../slices/messagesDataSlice.js';
 import { actions as modalActions } from '../slices/modalDataSlice.js';
 import routes from '../routes.js';
-
 import Channels from './Chat/Channels.jsx';
 import Messages from './Chat/Messages.jsx';
 import Input from './Chat/Input.jsx';
@@ -38,7 +37,7 @@ const Chat = () => {
     fetch()
       .catch((error) => {
         console.error(error);
-        toast.error(t('loadingErrorToast'));
+        toast.error(t('errors.loadingError'));
       });
   }, []);
 

@@ -11,10 +11,6 @@ const channelsDataSlice = createSlice({
       ...state,
       channels: action.payload,
     }),
-    setActiveChannelId: (state, action) => ({
-      ...state,
-      activeChannelId: action.payload,
-    }),
     addChannel: (state, action) => ({
       ...state,
       channels: [...state.channels, action.payload],
@@ -39,6 +35,10 @@ const channelsDataSlice = createSlice({
         channels: state.channels.filter((channel) => channel.id !== id),
       };
     },
+    setActiveChannelId: (state, action) => ({
+      ...state,
+      activeChannelId: action.payload,
+    }),
   },
 });
 

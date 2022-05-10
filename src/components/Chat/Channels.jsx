@@ -13,11 +13,7 @@ import { actions as channelActions } from '../../slices/channelsDataSlice.js';
 import { actions as modalActions } from '../../slices/modalDataSlice.js';
 
 const Channels = ({ props }) => {
-  const {
-    activeChannelId,
-    channels,
-    t,
-  } = props;
+  const { activeChannelId, channels, t } = props;
   const dispatch = useDispatch();
 
   const handleSwitchChannel = (channelId) => () => {

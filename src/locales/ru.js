@@ -13,7 +13,9 @@ export default {
       button: 'Войти',
       noAccount: 'Нет аккаунта?',
       signupLink: 'Регистрация',
-      submitError: 'Неверные имя пользователя или пароль',
+      errors: {
+        submitError: 'Неверные имя пользователя или пароль',
+      },
     },
     signupPage: {
       title: 'Регистрация',
@@ -45,7 +47,9 @@ export default {
       placeholder: 'Введите сообщение…',
       ariaLabel: 'Новое сообщение',
       send: 'Отправить',
-      loadingErrorToast: 'Ошибка соединения',
+      errors: {
+        loadingError: 'Ошибка соединения',
+      },
     },
     notFoundPage: {
       notFound: 'Страница не найдена',

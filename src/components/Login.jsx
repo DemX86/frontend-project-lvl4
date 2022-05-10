@@ -20,11 +20,10 @@ import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const Login = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'loginPage' });
-
   const [submitFailed, setSubmitFailed] = useState(false);
-  const navigate = useNavigate();
   const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { t } = useTranslation('translation', { keyPrefix: 'loginPage' });
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -96,7 +95,7 @@ const Login = () => {
                 value={formik.values.password}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {submitFailed ? t('submitError') : null}
+                {submitFailed ? t('errors.submitError') : null}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 

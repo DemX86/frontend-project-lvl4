@@ -10,10 +10,9 @@ import SocketContext from '../../contexts/socket.js';
 
 const AddChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.addChannel' });
-
   const socket = useContext(SocketContext);
-
   const { channels } = useSelector((state) => state.channelsData);
+
   const channelNames = channels.map((channel) => channel.name);
 
   const inputRef = useRef(null);

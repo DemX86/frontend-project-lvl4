@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import channelsDataReducer from './channelsDataSlice.js';
 import messagesDataReducer from './messagesDataSlice.js';
 import modalDataReducer from './modalDataSlice.js';

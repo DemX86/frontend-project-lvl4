@@ -21,11 +21,10 @@ import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const Signup = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'signupPage' });
-
   const [submitFailed, setSubmitFailed] = useState(false);
-  const navigate = useNavigate();
   const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { t } = useTranslation('translation', { keyPrefix: 'signupPage' });
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -73,6 +72,7 @@ const Signup = () => {
   const invalidUsername = formik.touched.username && formik.errors.username;
   const invalidPassword = formik.touched.password && formik.errors.password;
   const invalidConfirmPassword = formik.touched.confirmPassword && formik.errors.confirmPassword;
+  const invalidForm = invalidUsername || invalidPassword || invalidConfirmPassword;
 
   return (
     <Container className="h-100" fluid>
@@ -143,7 +143,7 @@ const Signup = () => {
 
             <Button
               className="w-100 mb-3"
-              disabled={formik.isSubmitting}
+              disabled={formik.isSubmitting || invalidForm}
               size="lg"
               type="submit"
               variant="primary"

@@ -8,11 +8,10 @@ import SocketContext from '../../contexts/socket.js';
 
 const RemoveChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.removeChannel' });
-
   const socket = useContext(SocketContext);
-
   const { channels } = useSelector((state) => state.channelsData);
   const { modalChannelId } = useSelector((state) => state.modalData);
+
   const currentChannel = channels.find((channel) => channel.id === modalChannelId);
 
   const formik = useFormik({

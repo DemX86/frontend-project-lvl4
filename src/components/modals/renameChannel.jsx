@@ -10,9 +10,7 @@ import SocketContext from '../../contexts/socket.js';
 
 const RenameChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.renameChannel' });
-
   const socket = useContext(SocketContext);
-
   const { channels } = useSelector((state) => state.channelsData);
   const { modalChannelId } = useSelector((state) => state.modalData);
 
