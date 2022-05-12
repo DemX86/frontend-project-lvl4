@@ -46,6 +46,6 @@ export default {
     new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
       'process.env.ROLLBAR_TOKEN': JSON.stringify(process.env.ROLLBAR_TOKEN),
-    })
+    }),
   ],
 };
