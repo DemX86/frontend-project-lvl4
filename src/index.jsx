@@ -4,7 +4,6 @@ import 'regenerator-runtime/runtime.js';
 import '../assets/application.scss';
 
 import { io } from 'socket.io-client';
-import React from 'react';
 import ReactDOM from 'react-dom';
 
 import InitApp from './InitApp.jsx';
@@ -12,6 +11,6 @@ import InitApp from './InitApp.jsx';
 const socket = io();
 
 ReactDOM.render(
-  <InitApp socket={socket} />,
+  await InitApp(socket),
   document.getElementById('app'),
 );
