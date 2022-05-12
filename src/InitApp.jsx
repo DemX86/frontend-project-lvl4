@@ -51,9 +51,6 @@ const InitApp = async (socket) => {
   });
   socket.on('newMessage', (message) => {
     store.dispatch(messageActions.addMessage(message));
-    // todo remove
-    console.log(process.env.NODE_ENV);
-    console.log(process.env.ROLLBAR_TOKEN);
   });
   socket.on('connect_error', (error) => {
     console.error(error);
