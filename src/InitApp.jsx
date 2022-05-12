@@ -28,8 +28,8 @@ const InitApp = async (socket) => {
     });
 
   const rollbarConfig = {
-    accessToken: '3d4990a9b75c4bd88be6a2790b89b1a5', // todo move to PATH
-    environment: 'production',
+    accessToken: process.env.ROLLBAR_TOKEN,
+    environment: process.env.NODE_ENV,
   };
 
   socket.on('newChannel', (channel) => {
