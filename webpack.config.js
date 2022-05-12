@@ -1,5 +1,6 @@
 import path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import webpack from 'webpack';
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -23,9 +24,6 @@ export default {
   experiments: {
     topLevelAwait: true,
   },
-  plugins: [
-    new MiniCssExtractPlugin(),
-  ],
   module: {
     rules: [
       {
@@ -44,4 +42,10 @@ export default {
       },
     ],
   },
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.ROLLBAR_TOKEN': JSON.stringify(process.env.ROLLBAR_TOKEN),
+    })
+  ],
 };
