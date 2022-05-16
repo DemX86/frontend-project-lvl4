@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const DEFAULT_CHANNEL_ID = 1;
+
 const channelsDataSlice = createSlice({
   name: 'channelsData',
   initialState: {
@@ -31,7 +33,7 @@ const channelsDataSlice = createSlice({
     removeChannel: (state, action) => {
       const { id } = action.payload;
       return {
-        ...state,
+        activeChannelId: DEFAULT_CHANNEL_ID,
         channels: state.channels.filter((channel) => channel.id !== id),
       };
     },

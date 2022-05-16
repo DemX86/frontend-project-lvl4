@@ -13,8 +13,6 @@ import SocketContext from './contexts/socket.js';
 import { actions as channelActions } from './slices/channelsDataSlice.js';
 import { actions as messageActions } from './slices/messagesDataSlice.js';
 
-const DEFAULT_CHANNEL_ID = 1;
-
 const InitApp = async (socket) => {
   await i18n
     .use(initReactI18next)
@@ -44,7 +42,6 @@ const InitApp = async (socket) => {
   });
   socket.on('removeChannel', (data) => {
     store.dispatch(channelActions.removeChannel(data));
-    store.dispatch(channelActions.setActiveChannelId(DEFAULT_CHANNEL_ID));
     const toastMessage = i18n.t('socketToasts.channelRemoved');
     toast.success(toastMessage);
   });
