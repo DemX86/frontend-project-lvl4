@@ -2,8 +2,7 @@ import React from 'react';
 import i18n from 'i18next';
 import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
 import { Provider as ReduxProvider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { initReactI18next } from 'react-i18next';
 
@@ -64,12 +63,9 @@ const InitApp = async (socket) => {
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <ReduxProvider store={store}>
-          <BrowserRouter>
-            <SocketContext.Provider value={socket}>
-              <App />
-              <ToastContainer />
-            </SocketContext.Provider>
-          </BrowserRouter>
+          <SocketContext.Provider value={socket}>
+            <App />
+          </SocketContext.Provider>
         </ReduxProvider>
       </ErrorBoundary>
     </RollbarProvider>

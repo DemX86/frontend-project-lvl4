@@ -1,6 +1,12 @@
 import React, { useContext } from 'react';
 import { Navbar } from 'react-bootstrap';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import AuthContext from '../contexts/auth.js';
 import AuthProvider from './AuthProvider.jsx';
@@ -16,26 +22,29 @@ const PrivateRoute = ({ children }) => {
 };
 
 const App = () => (
-  <AuthProvider>
-    <div className="h-100 d-flex flex-column">
-      <Navbar bg="white" expand="lg" variant="light" className="shadow-sm">
-        <NavbarItems />
-      </Navbar>
-      <Routes>
-        <Route
-          path="/"
-          element={(
-            <PrivateRoute>
-              <Chat />
-            </PrivateRoute>
-          )}
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
-  </AuthProvider>
+  <BrowserRouter>
+    <AuthProvider>
+      <div className="h-100 d-flex flex-column">
+        <Navbar bg="white" expand="lg" variant="light" className="shadow-sm">
+          <NavbarItems />
+        </Navbar>
+        <Routes>
+          <Route
+            path="/"
+            element={(
+              <PrivateRoute>
+                <Chat />
+              </PrivateRoute>
+            )}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <ToastContainer />
+    </AuthProvider>
+  </BrowserRouter>
 );
 
 export default App;
