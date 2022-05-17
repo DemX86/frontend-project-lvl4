@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, {
   useContext,
   useEffect,
@@ -16,11 +15,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 
+import ApiContext from '../contexts/api.js';
 import AuthContext from '../contexts/auth.js';
-import routes from '../routes.js';
 
 const Login = () => {
   const [submitFailed, setSubmitFailed] = useState(false);
+  const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const { t } = useTranslation('translation', { keyPrefix: 'loginPage' });
@@ -38,12 +38,12 @@ const Login = () => {
       username: '',
       password: '',
     },
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        const url = routes.loginPath();
-        const response = await axios.post(url, values);
-        localStorage.setItem('user', JSON.stringify(response.data));
+        const result = await api.login(values);
+        localStorage.setItem('user', JSON.stringify(result));
         auth.logIn();
+        resetForm();
         navigate('/');
       } catch (error) {
         if (error.isAxiosError && error.response.status === 401) {

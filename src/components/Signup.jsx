@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, {
   useContext,
   useEffect,
@@ -17,11 +16,12 @@ import { useFormik } from 'formik';
 import { object, ref, string } from 'yup';
 import { useTranslation } from 'react-i18next';
 
+import ApiContext from '../contexts/api.js';
 import AuthContext from '../contexts/auth.js';
-import routes from '../routes.js';
 
 const Signup = () => {
   const [submitFailed, setSubmitFailed] = useState(false);
+  const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const { t } = useTranslation('translation', { keyPrefix: 'signupPage' });
@@ -52,12 +52,12 @@ const Signup = () => {
         .required(t('errors.required'))
         .oneOf([ref('password')], t('errors.passwordsMatch')),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        const url = routes.signupPath();
-        const response = await axios.post(url, values);
-        localStorage.setItem('user', JSON.stringify(response.data));
+        const result = await api.signup(values);
+        localStorage.setItem('user', JSON.stringify(result));
         auth.logIn();
+        resetForm();
         navigate('/');
       } catch (error) {
         if (error.isAxiosError && error.response.status === 409) {

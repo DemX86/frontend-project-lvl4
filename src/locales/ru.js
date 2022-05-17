@@ -1,5 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 
+const connectionError = 'Ошибка соединения';
+
 export default {
   translation: {
     navbar: {
@@ -48,7 +50,7 @@ export default {
       ariaLabel: 'Новое сообщение',
       send: 'Отправить',
       errors: {
-        loadingError: 'Ошибка соединения',
+        connectionError,
       },
     },
     notFoundPage: {
@@ -65,7 +67,9 @@ export default {
         submit: 'Отправить',
         errors: {
           alreadyExists: 'Канал с таким именем уже существует',
+          connectionError,
         },
+        channelCreated: 'Канал создан',
       },
       renameChannel: {
         title: 'Смена названия канала',
@@ -75,20 +79,20 @@ export default {
         submit: 'Отправить',
         errors: {
           alreadyExists: 'Канал с таким именем уже существует',
+          connectionError,
         },
+        channelRenamed: 'Канал переименован',
       },
       removeChannel: {
         title: 'Удаление канала',
         confirm: 'Вы действительно хотите удалить канал',
         cancel: 'Отмена',
         submit: 'Удалить',
+        errors: {
+          connectionError,
+        },
+        channelRemoved: 'Канал удалён',
       },
-    },
-    socketToasts: {
-      channelCreated: 'Канал создан',
-      channelRenamed: 'Канал переименован',
-      channelRemoved: 'Канал удалён',
-      connectionError: 'Ошибка соединения',
     },
   },
 };

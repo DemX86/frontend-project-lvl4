@@ -2,15 +2,16 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 
-import SocketContext from '../../contexts/socket.js';
+import ApiContext from '../../contexts/api.js';
 
 const AddChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.addChannel' });
-  const socket = useContext(SocketContext);
+  const api = useContext(ApiContext);
   const { channels } = useSelector((state) => state.channelsData);
 
   const channelNames = channels.map((channel) => channel.name);
@@ -29,11 +30,16 @@ const AddChannelModal = ({ handleCloseModal }) => {
         .trim()
         .notOneOf(channelNames, t('errors.alreadyExists')),
     }),
-    onSubmit: (values) => {
-      const channel = {
-        name: values.name.trim(),
-      };
-      socket.emit('newChannel', channel);
+    onSubmit: async (values, { resetForm }) => {
+      const data = { name: values.name.trim() };
+      try {
+        await api.createChannel(data);
+      } catch (error) {
+        toast.error(t('errors.connectionError'));
+        return;
+      }
+      toast.success(t('channelCreated'));
+      resetForm();
       handleCloseModal();
     },
   });

@@ -2,15 +2,16 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import filter from 'leo-profanity';
+import { toast } from 'react-toastify';
 
-import SocketContext from '../../contexts/socket.js';
+import ApiContext from '../../contexts/api.js';
 
 filter.loadDictionary('ru');
 filter.add(filter.getDictionary('en'));
 
 const Input = ({ props }) => {
   const { activeChannelId, t, username } = props;
-  const socket = useContext(SocketContext);
+  const api = useContext(ApiContext);
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -21,13 +22,18 @@ const Input = ({ props }) => {
     initialValues: {
       body: '',
     },
-    onSubmit: (values, { resetForm }) => {
-      const message = {
+    onSubmit: async (values, { resetForm }) => {
+      const data = {
         body: filter.clean(values.body),
         channelId: activeChannelId,
         username,
       };
-      socket.emit('newMessage', message);
+      try {
+        await api.sendMessage(data);
+      } catch (error) {
+        toast.error(t('errors.connectionError'));
+        return;
+      }
       resetForm();
     },
   });

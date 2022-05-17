@@ -9,7 +9,7 @@ import {
 import { ToastContainer } from 'react-toastify';
 
 import AuthContext from '../contexts/auth.js';
-import AuthProvider from './AuthProvider.jsx';
+import AuthProvider from '../providers/AuthProvider.jsx';
 import Chat from './Chat.jsx';
 import Login from './Login.jsx';
 import NavbarItems from './NavbarItems.jsx';

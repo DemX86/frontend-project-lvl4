@@ -14,7 +14,7 @@ const channelsDataSlice = createSlice({
       channels: action.payload,
     }),
     addChannel: (state, action) => ({
-      ...state,
+      activeChannelId: action.payload.id,
       channels: [...state.channels, action.payload],
     }),
     renameChannel: (state, action) => {

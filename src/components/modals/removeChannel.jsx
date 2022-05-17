@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import SocketContext from '../../contexts/socket.js';
+import ApiContext from '../../contexts/api.js';
 
 const RemoveChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.removeChannel' });
-  const socket = useContext(SocketContext);
+  const api = useContext(ApiContext);
   const { channels } = useSelector((state) => state.channelsData);
   const { modalChannelId } = useSelector((state) => state.modalData);
 
@@ -16,8 +17,15 @@ const RemoveChannelModal = ({ handleCloseModal }) => {
 
   const formik = useFormik({
     initialValues: {},
-    onSubmit: () => {
-      socket.emit('removeChannel', { id: modalChannelId });
+    onSubmit: async () => {
+      const data = { id: modalChannelId };
+      try {
+        await api.removeChannel(data);
+      } catch (error) {
+        toast.error(t('errors.connectionError'));
+        return;
+      }
+      toast.success(t('channelRemoved'));
       handleCloseModal();
     },
   });

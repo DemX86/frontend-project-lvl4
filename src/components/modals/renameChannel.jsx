@@ -2,15 +2,16 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'react-i18next';
+import isEmpty from 'lodash/isEmpty';
 
-import SocketContext from '../../contexts/socket.js';
+import ApiContext from '../../contexts/api.js';
 
 const RenameChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.renameChannel' });
-  const socket = useContext(SocketContext);
+  const api = useContext(ApiContext);
   const { channels } = useSelector((state) => state.channelsData);
   const { modalChannelId } = useSelector((state) => state.modalData);
 
@@ -31,12 +32,19 @@ const RenameChannelModal = ({ handleCloseModal }) => {
         .trim()
         .notOneOf(channelNames, t('errors.alreadyExists')),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values, { resetForm }) => {
       const data = {
         id: modalChannelId,
         name: values.name.trim(),
       };
-      socket.emit('renameChannel', data);
+      try {
+        await api.renameChannel(data);
+      } catch (error) {
+        toast.error(t('errors.connectionError'));
+        return;
+      }
+      toast.success(t('channelRenamed'));
+      resetForm();
       handleCloseModal();
     },
   });
