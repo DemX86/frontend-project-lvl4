@@ -40,9 +40,8 @@ const Login = () => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        const result = await api.login(values);
-        localStorage.setItem('user', JSON.stringify(result));
-        auth.logIn();
+        const user = await api.login(values);
+        auth.logIn(user);
         resetForm();
         navigate('/');
       } catch (error) {

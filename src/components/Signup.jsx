@@ -54,9 +54,8 @@ const Signup = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-        const result = await api.signup(values);
-        localStorage.setItem('user', JSON.stringify(result));
-        auth.logIn();
+        const user = await api.signup(values);
+        auth.logIn(user);
         resetForm();
         navigate('/');
       } catch (error) {

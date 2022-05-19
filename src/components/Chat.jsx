@@ -14,8 +14,6 @@ import getModal from './modals/getModal.js';
 import selectors from '../slices/selectors.js';
 
 const Chat = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-
   const api = useContext(ApiContext);
   const dispatch = useDispatch();
   const { activeModalType } = useSelector(selectors.modalSelector);
@@ -47,7 +45,6 @@ const Chat = () => {
     channels,
     messages,
     t,
-    username: user.username,
   };
 
   return (

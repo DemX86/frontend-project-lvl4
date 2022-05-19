@@ -5,13 +5,15 @@ import filter from 'leo-profanity';
 import { toast } from 'react-toastify';
 
 import ApiContext from '../../contexts/api.js';
+import AuthContext from '../../contexts/auth.js';
 
 filter.loadDictionary('ru');
 filter.add(filter.getDictionary('en'));
 
 const Input = ({ props }) => {
-  const { activeChannelId, t, username } = props;
+  const { activeChannelId, t } = props;
   const api = useContext(ApiContext);
+  const auth = useContext(AuthContext);
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -26,7 +28,7 @@ const Input = ({ props }) => {
       const data = {
         body: filter.clean(values.body),
         channelId: activeChannelId,
-        username,
+        username: auth.getUsername(),
       };
       try {
         await api.sendMessage(data);

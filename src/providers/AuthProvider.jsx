@@ -6,7 +6,8 @@ const AuthProvider = ({ children }) => {
   const initialState = Boolean(localStorage.getItem('user'));
   const [loggedIn, setLoggedIn] = useState(initialState);
 
-  const logIn = () => {
+  const logIn = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
     setLoggedIn(true);
   };
 
@@ -15,10 +16,16 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
+  const getUsername = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user.username;
+  };
+
   const auth = useMemo(() => ({
     loggedIn,
     logIn,
     logOut,
+    getUsername
   }), [loggedIn]);
 
   return (
