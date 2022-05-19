@@ -9,10 +9,13 @@ const channelsDataSlice = createSlice({
     activeChannelId: null,
   },
   reducers: {
-    setChannels: (state, action) => ({
-      ...state,
-      channels: action.payload,
-    }),
+    setChannels: (state, action) => {
+      const { channels, currentChannelId } = action.payload;
+      return {
+        activeChannelId: currentChannelId,
+        channels,
+      };
+    },
     addChannel: (state, action) => ({
       activeChannelId: action.payload.id,
       channels: [...state.channels, action.payload],
