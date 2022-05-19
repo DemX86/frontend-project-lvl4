@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
     loggedIn,
     logIn,
     logOut,
-    getUsername
+    getUsername,
   }), [loggedIn]);
 
   return (
