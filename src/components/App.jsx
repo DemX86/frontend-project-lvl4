@@ -15,6 +15,7 @@ import Login from './Login.jsx';
 import NavbarItems from './NavbarItems.jsx';
 import NotFound from './NotFound.jsx';
 import Signup from './Signup.jsx';
+import routes from '../routes.js';
 
 const PrivateRoute = ({ children }) => {
   const auth = useContext(AuthContext);
@@ -30,16 +31,16 @@ const App = () => (
         </Navbar>
         <Routes>
           <Route
-            path="/"
+            path={routes.appRootPath()}
             element={(
               <PrivateRoute>
                 <Chat />
               </PrivateRoute>
             )}
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path={routes.appLoginPath()} element={<Login />} />
+          <Route path={routes.appSignupPath()} element={<Signup />} />
+          <Route path={routes.appAnyPath()} element={<NotFound />} />
         </Routes>
       </div>
       <ToastContainer />

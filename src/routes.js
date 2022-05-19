@@ -2,7 +2,11 @@ const host = '';
 const prefix = 'api/v1';
 
 export default {
-  loginPath: () => [host, prefix, 'login'].join('/'),
-  signupPath: () => [host, prefix, 'signup'].join('/'),
-  dataPath: () => [host, prefix, 'data'].join('/'),
+  apiLoginPath: () => [host, prefix, 'login'].join('/'),
+  apiSignupPath: () => [host, prefix, 'signup'].join('/'),
+  apiDataPath: () => [host, prefix, 'data'].join('/'),
+  appRootPath: () => '/',
+  appLoginPath: () => '/login',
+  appSignupPath: () => '/signup',
+  appAnyPath: () => '*',
 };

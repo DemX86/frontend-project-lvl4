@@ -29,13 +29,13 @@ const ApiProvider = ({ children, socket }) => {
   const ax = axios.create();
 
   const login = async (data) => {
-    const url = routes.loginPath();
+    const url = routes.apiLoginPath();
     const response = await axios.post(url, data);
     return response.data;
   };
 
   const signup = async (data) => {
-    const url = routes.signupPath();
+    const url = routes.apiSignupPath();
     const response = await axios.post(url, data);
     return response.data;
   };
@@ -44,7 +44,7 @@ const ApiProvider = ({ children, socket }) => {
     const user = JSON.parse(localStorage.getItem('user'));
     ax.defaults.headers.common.Authorization = `Bearer ${user.token}`;
 
-    const url = routes.dataPath();
+    const url = routes.apiDataPath();
     const response = await ax.get(url);
     return response.data;
   };
