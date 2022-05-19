@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import ApiContext from '../contexts/api.js';
 import { channelActions } from '../slices/channelsDataSlice.js';
-import { messageActions } from '../slices/messagesDataSlice.js';
 import { modalActions } from '../slices/modalDataSlice.js';
 import Channels from './Chat/Channels.jsx';
 import Input from './Chat/Input.jsx';
