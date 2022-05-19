@@ -9,8 +9,8 @@ import ApiProvider from './providers/ApiProvider.jsx';
 import App from './components/App.jsx';
 import resources from './locales/index.js';
 import store from './slices/index.js';
-import { actions as channelActions } from './slices/channelsDataSlice.js';
-import { actions as messageActions } from './slices/messagesDataSlice.js';
+import { channelActions } from './slices/channelsDataSlice.js';
+import { messageActions } from './slices/messagesDataSlice.js';
 
 const InitApp = async (socket) => {
   await i18n

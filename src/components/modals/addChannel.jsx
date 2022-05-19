@@ -8,11 +8,12 @@ import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 
 import ApiContext from '../../contexts/api.js';
+import selectors from '../../slices/selectors.js';
 
 const AddChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.addChannel' });
   const api = useContext(ApiContext);
-  const { channels } = useSelector((state) => state.channelsData);
+  const { channels } = useSelector(selectors.channelsSelector);
 
   const channelNames = channels.map((channel) => channel.name);
 

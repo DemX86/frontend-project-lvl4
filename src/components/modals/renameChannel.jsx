@@ -8,12 +8,13 @@ import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 
 import ApiContext from '../../contexts/api.js';
+import selectors from '../../slices/selectors.js';
 
 const RenameChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.renameChannel' });
   const api = useContext(ApiContext);
-  const { channels } = useSelector((state) => state.channelsData);
-  const { modalChannelId } = useSelector((state) => state.modalData);
+  const { channels } = useSelector(selectors.channelsSelector);
+  const { modalChannelId } = useSelector(selectors.modalSelector);
 
   const channelNames = channels.map((channel) => channel.name);
   const currentChannel = channels.find((channel) => channel.id === modalChannelId);

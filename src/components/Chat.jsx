@@ -5,22 +5,23 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 import ApiContext from '../contexts/api.js';
-import { actions as channelActions } from '../slices/channelsDataSlice.js';
-import { actions as messageActions } from '../slices/messagesDataSlice.js';
-import { actions as modalActions } from '../slices/modalDataSlice.js';
+import { channelActions } from '../slices/channelsDataSlice.js';
+import { messageActions } from '../slices/messagesDataSlice.js';
+import { modalActions } from '../slices/modalDataSlice.js';
 import Channels from './Chat/Channels.jsx';
-import Messages from './Chat/Messages.jsx';
 import Input from './Chat/Input.jsx';
+import Messages from './Chat/Messages.jsx';
 import getModal from './modals/getModal.js';
+import selectors from '../slices/selectors.js';
 
 const Chat = () => {
   const user = JSON.parse(localStorage.getItem('user'));
 
   const api = useContext(ApiContext);
   const dispatch = useDispatch();
-  const { activeModalType } = useSelector((state) => state.modalData);
-  const { channels, activeChannelId } = useSelector((state) => state.channelsData);
-  const { messages } = useSelector((state) => state.messagesData);
+  const { activeModalType } = useSelector(selectors.modalSelector);
+  const { channels, activeChannelId } = useSelector(selectors.channelsSelector);
+  const { messages } = useSelector(selectors.messagesSelector);
   const { t } = useTranslation('translation', { keyPrefix: 'chatPage' });
 
   useEffect(() => {

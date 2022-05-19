@@ -9,8 +9,8 @@ import {
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
-import { actions as channelActions } from '../../slices/channelsDataSlice.js';
-import { actions as modalActions } from '../../slices/modalDataSlice.js';
+import { channelActions } from '../../slices/channelsDataSlice.js';
+import { modalActions } from '../../slices/modalDataSlice.js';
 
 const Channels = ({ props }) => {
   const { activeChannelId, channels, t } = props;

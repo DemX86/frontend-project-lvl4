@@ -6,12 +6,13 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import ApiContext from '../../contexts/api.js';
+import selectors from '../../slices/selectors.js';
 
 const RemoveChannelModal = ({ handleCloseModal }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'modals.removeChannel' });
   const api = useContext(ApiContext);
-  const { channels } = useSelector((state) => state.channelsData);
-  const { modalChannelId } = useSelector((state) => state.modalData);
+  const { channels } = useSelector(selectors.channelsSelector);
+  const { modalChannelId } = useSelector(selectors.modalSelector);
 
   const currentChannel = channels.find((channel) => channel.id === modalChannelId);
 
