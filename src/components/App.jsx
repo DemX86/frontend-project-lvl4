@@ -17,14 +17,14 @@ import NotFound from './NotFound.jsx';
 import Signup from './Signup.jsx';
 import routes from '../routes.js';
 
-const PrivateRoute = ({ children }) => {
+const RequireAuth = ({ children }) => {
   const auth = useContext(AuthContext);
   return auth.loggedIn ? children : <Navigate to="/login" />;
 };
 
 const App = () => (
-  <BrowserRouter>
-    <AuthProvider>
+  <AuthProvider>
+    <BrowserRouter>
       <div className="h-100 d-flex flex-column">
         <Navbar bg="white" expand="lg" variant="light" className="shadow-sm">
           <NavbarItems />
@@ -33,9 +33,9 @@ const App = () => (
           <Route
             path={routes.appRootPath()}
             element={(
-              <PrivateRoute>
+              <RequireAuth>
                 <Chat />
-              </PrivateRoute>
+              </RequireAuth>
             )}
           />
           <Route path={routes.appLoginPath()} element={<Login />} />
@@ -44,8 +44,8 @@ const App = () => (
         </Routes>
       </div>
       <ToastContainer />
-    </AuthProvider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </AuthProvider>
 );
 
 export default App;
