@@ -1,9 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 
+// modalData
 const selectActiveModalType = (state) => state.modalData.activeModalType;
 
 const selectModalChannelId = (state) => state.modalData.modalChannelId;
 
+// channelsData
 const selectChannels = (state) => state.channelsData.channels;
 
 const selectActiveChannelId = (state) => state.channelsData.activeChannelId;
@@ -27,6 +29,7 @@ const selectChannelNames = createSelector(
   (channels) => channels.map((channel) => channel.name),
 );
 
+// messagesData
 const selectMessages = (state) => state.messagesData.messages;
 
 const selectActiveChannelMessages = createSelector(
