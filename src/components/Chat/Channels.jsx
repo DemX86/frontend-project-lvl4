@@ -7,14 +7,18 @@ import {
   Nav,
   Stack,
 } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { channelActions } from '../../slices/channelsDataSlice.js';
 import { modalActions } from '../../slices/modalDataSlice.js';
+import selectors from '../../slices/selectors.js';
 
-const Channels = ({ props }) => {
-  const { activeChannelId, channels, t } = props;
+const Channels = () => {
   const dispatch = useDispatch();
+  const channels = useSelector(selectors.selectChannels);
+  const activeChannelId = useSelector(selectors.selectActiveChannelId);
+  const { t } = useTranslation('translation', { keyPrefix: 'chatPage' });
 
   const handleSwitchChannel = (channelId) => () => {
     dispatch(channelActions.setActiveChannelId(channelId));

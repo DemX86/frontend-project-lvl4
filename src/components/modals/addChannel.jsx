@@ -11,11 +11,9 @@ import ApiContext from '../../contexts/api.js';
 import selectors from '../../slices/selectors.js';
 
 const AddChannelModal = ({ handleCloseModal }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'modals.addChannel' });
   const api = useContext(ApiContext);
-  const { channels } = useSelector(selectors.channelsSelector);
-
-  const channelNames = channels.map((channel) => channel.name);
+  const channelNames = useSelector(selectors.selectChannelNames);
+  const { t } = useTranslation('translation', { keyPrefix: 'modals.addChannel' });
 
   const inputRef = useRef(null);
   useEffect(() => {

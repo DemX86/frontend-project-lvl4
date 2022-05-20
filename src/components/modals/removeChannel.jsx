@@ -9,12 +9,10 @@ import ApiContext from '../../contexts/api.js';
 import selectors from '../../slices/selectors.js';
 
 const RemoveChannelModal = ({ handleCloseModal }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'modals.removeChannel' });
   const api = useContext(ApiContext);
-  const { channels } = useSelector(selectors.channelsSelector);
-  const { modalChannelId } = useSelector(selectors.modalSelector);
-
-  const currentChannel = channels.find((channel) => channel.id === modalChannelId);
+  const modalChannelId = useSelector(selectors.selectModalChannelId);
+  const channelToRemove = useSelector(selectors.selectModalChannel);
+  const { t } = useTranslation('translation', { keyPrefix: 'modals.removeChannel' });
 
   const formik = useFormik({
     initialValues: {},
@@ -40,7 +38,7 @@ const RemoveChannelModal = ({ handleCloseModal }) => {
         <p>
           {t('confirm')}
           &nbsp;
-          <strong>{currentChannel?.name}</strong>
+          <strong>{channelToRemove?.name}</strong>
           ?
         </p>
         <Form onSubmit={formik.handleSubmit}>

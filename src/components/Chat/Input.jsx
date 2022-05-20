@@ -3,17 +3,21 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import filter from 'leo-profanity';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import ApiContext from '../../contexts/api.js';
 import AuthContext from '../../contexts/auth.js';
+import selectors from '../../slices/selectors.js';
 
 filter.loadDictionary('ru');
 filter.add(filter.getDictionary('en'));
 
-const Input = ({ props }) => {
-  const { activeChannelId, t } = props;
+const Input = () => {
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
+  const activeChannelId = useSelector(selectors.selectActiveChannelId);
+  const { t } = useTranslation('translation', { keyPrefix: 'chatPage' });
 
   const inputRef = useRef(null);
   useEffect(() => {

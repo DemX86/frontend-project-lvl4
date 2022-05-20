@@ -11,13 +11,11 @@ import ApiContext from '../../contexts/api.js';
 import selectors from '../../slices/selectors.js';
 
 const RenameChannelModal = ({ handleCloseModal }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'modals.renameChannel' });
   const api = useContext(ApiContext);
-  const { channels } = useSelector(selectors.channelsSelector);
-  const { modalChannelId } = useSelector(selectors.modalSelector);
-
-  const channelNames = channels.map((channel) => channel.name);
-  const currentChannel = channels.find((channel) => channel.id === modalChannelId);
+  const channelNames = useSelector(selectors.selectChannelNames);
+  const modalChannelId = useSelector(selectors.selectModalChannelId);
+  const channelToRename = useSelector(selectors.selectModalChannel);
+  const { t } = useTranslation('translation', { keyPrefix: 'modals.renameChannel' });
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -26,7 +24,7 @@ const RenameChannelModal = ({ handleCloseModal }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: currentChannel.name,
+      name: channelToRename.name,
     },
     validationSchema: object({
       name: string()

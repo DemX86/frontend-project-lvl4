@@ -16,9 +16,7 @@ import selectors from '../slices/selectors.js';
 const Chat = () => {
   const api = useContext(ApiContext);
   const dispatch = useDispatch();
-  const { activeModalType } = useSelector(selectors.modalSelector);
-  const { channels, activeChannelId } = useSelector(selectors.channelsSelector);
-  const { messages } = useSelector(selectors.messagesSelector);
+  const activeModalType = useSelector(selectors.selectActiveModalType);
   const { t } = useTranslation('translation', { keyPrefix: 'chatPage' });
 
   useEffect(() => {
@@ -40,22 +38,15 @@ const Chat = () => {
     }));
   };
 
-  const props = {
-    activeChannelId,
-    channels,
-    messages,
-    t,
-  };
-
   return (
     <>
       <Container className="h-100 my-4 overflow-hidden rounded shadow">
         <Row className="h-100">
-          <Channels props={props} />
+          <Channels />
           <Col className="bg-white h-100 p-0">
             <div className="d-flex flex-column h-100">
-              <Messages props={props} />
-              <Input props={props} />
+              <Messages />
+              <Input />
             </div>
           </Col>
         </Row>

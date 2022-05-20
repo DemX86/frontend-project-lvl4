@@ -1,20 +1,48 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-const outputSelector = (data) => data;
+const selectActiveModalType = (state) => state.modalData.activeModalType;
 
-const selectors = {
-  channelsSelector: createSelector(
-    (state) => state.channelsData,
-    outputSelector,
+const selectModalChannelId = (state) => state.modalData.modalChannelId;
+
+const selectChannels = (state) => state.channelsData.channels;
+
+const selectActiveChannelId = (state) => state.channelsData.activeChannelId;
+
+const selectActiveChannel = createSelector(
+  [selectChannels, selectActiveChannelId],
+  (channels, activeChannelId) => (
+    channels.find((channel) => channel.id === activeChannelId)
   ),
-  messagesSelector: createSelector(
-    (state) => state.messagesData,
-    outputSelector,
+);
+
+const selectModalChannel = createSelector(
+  [selectChannels, selectModalChannelId],
+  (channels, modalChannelId) => (
+    channels.find((channel) => channel.id === modalChannelId)
   ),
-  modalSelector: createSelector(
-    (state) => state.modalData,
-    outputSelector,
+);
+
+const selectChannelNames = createSelector(
+  selectChannels,
+  (channels) => channels.map((channel) => channel.name),
+);
+
+const selectMessages = (state) => state.messagesData.messages;
+
+const selectActiveChannelMessages = createSelector(
+  [selectMessages, selectActiveChannelId],
+  (messages, activeChannelId) => (
+    messages.filter((message) => message.channelId === activeChannelId)
   ),
+);
+
+export default {
+  selectActiveModalType,
+  selectModalChannelId,
+  selectChannels,
+  selectActiveChannelId,
+  selectActiveChannel,
+  selectModalChannel,
+  selectChannelNames,
+  selectActiveChannelMessages,
 };
-
-export default selectors;
