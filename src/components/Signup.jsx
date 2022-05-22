@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 import ApiContext from '../contexts/api.js';
 import AuthContext from '../contexts/auth.js';
+import routes from '../routes.js';
 
 const Signup = () => {
   const [submitFailed, setSubmitFailed] = useState(false);
@@ -29,7 +30,7 @@ const Signup = () => {
   const inputRef = useRef(null);
   useEffect(() => {
     if (auth.loggedIn) {
-      navigate('/');
+      navigate(routes.appRootPath());
     }
     inputRef.current.focus();
   }, []);
@@ -57,7 +58,7 @@ const Signup = () => {
         const user = await api.signup(values);
         auth.logIn(user);
         resetForm();
-        navigate('/');
+        navigate(routes.appRootPath());
       } catch (error) {
         if (error.isAxiosError && error.response.status === 409) {
           setSubmitFailed(true);
