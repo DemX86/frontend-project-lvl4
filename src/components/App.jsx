@@ -19,7 +19,7 @@ import routes from '../routes.js';
 
 const RequireAuth = ({ children }) => {
   const auth = useContext(AuthContext);
-  return auth.loggedIn ? children : <Navigate to="/login" />;
+  return auth.loggedIn ? children : <Navigate to={routes.appLoginPath()} />;
 };
 
 const App = () => (

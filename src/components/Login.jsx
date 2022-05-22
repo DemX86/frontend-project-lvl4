@@ -116,7 +116,7 @@ const Login = () => {
               {t('noAccount')}
               &nbsp;
             </span>
-            <Link to="/signup">{t('signupLink')}</Link>
+            <Link to={routes.appSignupPath()}>{t('signupLink')}</Link>
           </div>
         </Col>
       </Row>

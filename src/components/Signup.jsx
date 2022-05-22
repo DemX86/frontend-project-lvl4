@@ -158,7 +158,7 @@ const Signup = () => {
               {t('hasAccount')}
               &nbsp;
             </span>
-            <Link to="/login">{t('loginLink')}</Link>
+            <Link to={routes.appLoginPath()}>{t('loginLink')}</Link>
           </div>
         </Col>
       </Row>

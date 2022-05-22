@@ -3,6 +3,8 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import routes from '../routes.js';
+
 const NotFound = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'notFoundPage' });
 
@@ -16,7 +18,7 @@ const NotFound = () => {
               {t('help')}
               &nbsp;
             </span>
-            <Link to="/">{t('homeLink')}</Link>
+            <Link to={routes.appRootPath()}>{t('homeLink')}</Link>
           </div>
         </Col>
       </Row>
