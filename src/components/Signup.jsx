@@ -22,7 +22,7 @@ import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const Signup = () => {
-  const [submitFailed, setSubmitFailed] = useState(false);
+  const [isSubmitFailed, setSubmitFailed] = useState(false);
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -70,10 +70,10 @@ const Signup = () => {
     },
   });
 
-  const invalidUsername = formik.touched.username && formik.errors.username;
-  const invalidPassword = formik.touched.password && formik.errors.password;
-  const invalidConfirmPassword = formik.touched.confirmPassword && formik.errors.confirmPassword;
-  const invalidForm = invalidUsername || invalidPassword || invalidConfirmPassword;
+  const isInvalidUsername = formik.touched.username && formik.errors.username;
+  const isInvalidPassword = formik.touched.password && formik.errors.password;
+  const isInvalidConfirmPassword = formik.touched.confirmPassword && formik.errors.confirmPassword;
+  const isInvalidForm = isInvalidUsername || isInvalidPassword || isInvalidConfirmPassword;
 
   return (
     <Container className="h-100" fluid>
@@ -88,7 +88,7 @@ const Signup = () => {
               label={t('username')}
             >
               <Form.Control
-                isInvalid={invalidUsername || submitFailed}
+                isInvalid={isInvalidUsername || isSubmitFailed}
                 name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -98,7 +98,7 @@ const Signup = () => {
                 value={formik.values.username}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {submitFailed ? t('submitError') : formik.errors.username}
+                {isSubmitFailed ? t('submitError') : formik.errors.username}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 
@@ -108,7 +108,7 @@ const Signup = () => {
               label={t('password')}
             >
               <Form.Control
-                isInvalid={invalidPassword}
+                isInvalid={isInvalidPassword}
                 name="password"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -128,7 +128,7 @@ const Signup = () => {
               label={t('confirmPassword')}
             >
               <Form.Control
-                isInvalid={invalidConfirmPassword}
+                isInvalid={isInvalidConfirmPassword}
                 name="confirmPassword"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -144,7 +144,7 @@ const Signup = () => {
 
             <Button
               className="w-100 mb-3"
-              disabled={formik.isSubmitting || invalidForm}
+              disabled={formik.isSubmitting || isInvalidForm}
               size="lg"
               type="submit"
               variant="primary"

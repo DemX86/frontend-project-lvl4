@@ -21,7 +21,7 @@ import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const Login = () => {
-  const [submitFailed, setSubmitFailed] = useState(false);
+  const [isSubmitFailed, setSubmitFailed] = useState(false);
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const Login = () => {
               label={t('username')}
             >
               <Form.Control
-                isInvalid={submitFailed}
+                isInvalid={isSubmitFailed}
                 name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -86,7 +86,7 @@ const Login = () => {
               label={t('password')}
             >
               <Form.Control
-                isInvalid={submitFailed}
+                isInvalid={isSubmitFailed}
                 name="password"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -96,7 +96,7 @@ const Login = () => {
                 value={formik.values.password}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {submitFailed ? t('errors.submitError') : null}
+                {isSubmitFailed ? t('errors.submitError') : null}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 
