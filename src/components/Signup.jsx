@@ -12,8 +12,9 @@ import {
   Row,
 } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
 import { object, ref, string } from 'yup';
+import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 
 import ApiContext from '../contexts/api.js';
@@ -64,7 +65,7 @@ const Signup = () => {
           setSubmitFailed(true);
           return;
         }
-        throw error;
+        toast.error(t('errors.connectionError'));
       }
     },
   });

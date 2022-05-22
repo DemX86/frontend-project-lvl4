@@ -17,6 +17,7 @@ export default {
       signupLink: 'Регистрация',
       errors: {
         submitError: 'Неверные имя пользователя или пароль',
+        connectionError,
       },
     },
     signupPage: {
@@ -33,6 +34,7 @@ export default {
         usernameLength: 'От 3 до 20 символов',
         passwordMin: 'Не менее 6 символов',
         passwordsMatch: 'Пароли должны совпадать',
+        connectionError,
       },
     },
     chatPage: {
