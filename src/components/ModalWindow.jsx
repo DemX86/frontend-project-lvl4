@@ -24,7 +24,6 @@ const ModalWindow = () => {
       {React.createElement(getModalContent(modalType), { handleCloseModal })}
     </Modal>
   );
-
 };
 
 export default ModalWindow;
