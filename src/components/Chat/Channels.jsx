@@ -24,10 +24,10 @@ const Channels = () => {
     dispatch(channelActions.setActiveChannelId(channelId));
   };
 
-  const handleShowModal = (modalType, channelId = null) => () => {
-    dispatch(modalActions.setModalData({
-      activeModalType: modalType,
-      modalChannelId: channelId,
+  const handleShowModal = (modalType, modalChannelId = null) => () => {
+    dispatch(modalActions.showModal({
+      modalType,
+      modalChannelId,
     }));
   };
 

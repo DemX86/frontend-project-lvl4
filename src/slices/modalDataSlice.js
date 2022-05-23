@@ -1,22 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  isActive: false,
+  modalType: null,
+  modalChannelId: null,
+};
+
 const modalDataSlice = createSlice({
   name: 'modalData',
-  initialState: {
-    activeModalType: null,
-    modalChannelId: null,
-  },
+  initialState,
   reducers: {
-    setModalData: (state, action) => {
-      const {
-        activeModalType,
-        modalChannelId,
-      } = action.payload;
+    showModal: (state, action) => {
+      const { modalType, modalChannelId } = action.payload;
       return {
-        activeModalType,
+        isActive: true,
+        modalType,
         modalChannelId,
       };
     },
+    hideModal: () => initialState,
   },
 });
 

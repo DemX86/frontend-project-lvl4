@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import ApiContext from '../../contexts/api.js';
 import selectors from '../../slices/selectors.js';
 
-const RemoveChannelModal = ({ handleCloseModal }) => {
+const RemoveChannelModalContent = ({ handleCloseModal }) => {
   const api = useContext(ApiContext);
   const modalChannelId = useSelector(selectors.selectModalChannelId);
   const channelToRemove = useSelector(selectors.selectModalChannel);
@@ -30,7 +30,7 @@ const RemoveChannelModal = ({ handleCloseModal }) => {
   });
 
   return (
-    <Modal show onHide={handleCloseModal}>
+    <>
       <Modal.Header closeButton>
         <Modal.Title>{t('title')}</Modal.Title>
       </Modal.Header>
@@ -59,8 +59,8 @@ const RemoveChannelModal = ({ handleCloseModal }) => {
           </Modal.Footer>
         </Form>
       </Modal.Body>
-    </Modal>
+    </>
   );
 };
 
-export default RemoveChannelModal;
+export default RemoveChannelModalContent;

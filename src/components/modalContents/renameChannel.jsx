@@ -10,7 +10,7 @@ import isEmpty from 'lodash/isEmpty';
 import ApiContext from '../../contexts/api.js';
 import selectors from '../../slices/selectors.js';
 
-const RenameChannelModal = ({ handleCloseModal }) => {
+const RenameChannelModalContent = ({ handleCloseModal }) => {
   const api = useContext(ApiContext);
   const channelNames = useSelector(selectors.selectChannelNames);
   const modalChannelId = useSelector(selectors.selectModalChannelId);
@@ -49,7 +49,7 @@ const RenameChannelModal = ({ handleCloseModal }) => {
   });
 
   return (
-    <Modal show onHide={handleCloseModal}>
+    <>
       <Modal.Header closeButton>
         <Modal.Title>{t('title')}</Modal.Title>
       </Modal.Header>
@@ -91,8 +91,8 @@ const RenameChannelModal = ({ handleCloseModal }) => {
           </Modal.Footer>
         </Form>
       </Modal.Body>
-    </Modal>
+    </>
   );
 };
 
-export default RenameChannelModal;
+export default RenameChannelModalContent;

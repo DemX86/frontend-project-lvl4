@@ -12,6 +12,7 @@ import AuthContext from '../contexts/auth.js';
 import AuthProvider from '../providers/AuthProvider.jsx';
 import Chat from './Chat.jsx';
 import Login from './Login.jsx';
+import ModalWindow from './ModalWindow.jsx';
 import NavbarItems from './NavbarItems.jsx';
 import NotFound from './NotFound.jsx';
 import Signup from './Signup.jsx';
@@ -43,6 +44,7 @@ const App = () => (
           <Route path={routes.appAnyPath()} element={<NotFound />} />
         </Routes>
       </div>
+      <ModalWindow />
       <ToastContainer />
     </BrowserRouter>
   </AuthProvider>
