@@ -1,24 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+/* eslint-disable no-param-reassign */
 
-const initialState = {
-  isActive: false,
-  modalType: null,
-  modalChannelId: null,
-};
+import { createSlice } from '@reduxjs/toolkit';
 
 const modalDataSlice = createSlice({
   name: 'modalData',
-  initialState,
+  initialState: {
+    isActive: false,
+    modalType: null,
+    modalChannelId: null,
+  },
   reducers: {
     showModal: (state, action) => {
       const { modalType, modalChannelId } = action.payload;
-      return {
-        isActive: true,
-        modalType,
-        modalChannelId,
-      };
+      state.isActive = true;
+      state.modalType = modalType;
+      state.modalChannelId = modalChannelId;
     },
-    hideModal: () => initialState,
+    hideModal: (state) => {
+      state.isActive = false;
+      state.modalType = null;
+      state.modalChannelId = null;
+    },
   },
 });
 

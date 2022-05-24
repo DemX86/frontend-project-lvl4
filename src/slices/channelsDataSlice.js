@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const DEFAULT_CHANNEL_ID = 1;
@@ -11,39 +13,27 @@ const channelsDataSlice = createSlice({
   reducers: {
     setChannels: (state, action) => {
       const { channels, currentChannelId } = action.payload;
-      return {
-        activeChannelId: currentChannelId,
-        channels,
-      };
+      state.channels = channels;
+      state.activeChannelId = currentChannelId;
     },
-    addChannel: (state, action) => ({
-      activeChannelId: action.payload.id,
-      channels: [...state.channels, action.payload],
-    }),
+    addChannel: (state, action) => {
+      const newChannel = action.payload;
+      state.activeChannelId = newChannel.id;
+      state.channels.push(newChannel);
+    },
     renameChannel: (state, action) => {
-      const renamedChannel = action.payload;
-      const channels = state.channels.map((channel) => {
-        if (channel.id === renamedChannel.id) {
-          return renamedChannel;
-        }
-        return channel;
-      });
-      return {
-        ...state,
-        channels,
-      };
+      const { id, name } = action.payload;
+      const channelToRename = state.channels.find((channel) => channel.id === id);
+      channelToRename.name = name;
     },
     removeChannel: (state, action) => {
       const { id } = action.payload;
-      return {
-        activeChannelId: DEFAULT_CHANNEL_ID,
-        channels: state.channels.filter((channel) => channel.id !== id),
-      };
+      state.channels = state.channels.filter((channel) => channel.id !== id);
+      state.activeChannelId = DEFAULT_CHANNEL_ID;
     },
-    setActiveChannelId: (state, action) => ({
-      ...state,
-      activeChannelId: action.payload,
-    }),
+    setActiveChannelId: (state, action) => {
+      state.activeChannelId = action.payload;
+    },
   },
 });
 
