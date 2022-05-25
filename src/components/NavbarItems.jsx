@@ -8,17 +8,17 @@ import routes from '../routes.js';
 
 const NavbarItems = () => {
   const auth = useContext(AuthContext);
-  const { t } = useTranslation('translation', { keyPrefix: 'navbar' });
+  const { t } = useTranslation();
 
   return (
     <Container>
       <Navbar.Brand as={Link} to={routes.appRootPath()}>
-        {t('project')}
+        {t('navbar.project')}
       </Navbar.Brand>
       {auth.loggedIn
         ? (
           <Button onClick={auth.logOut} variant="warning">
-            {t('logout')}
+            {t('navbar.logout')}
           </Button>
         ) : null}
     </Container>

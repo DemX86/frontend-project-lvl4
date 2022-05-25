@@ -15,7 +15,7 @@ const RenameChannelModalContent = ({ handleCloseModal }) => {
   const channelNames = useSelector(selectors.selectChannelNames);
   const modalChannelId = useSelector(selectors.selectModalChannelId);
   const channelToRename = useSelector(selectors.selectModalChannel);
-  const { t } = useTranslation('translation', { keyPrefix: 'modals.renameChannel' });
+  const { t } = useTranslation();
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -29,7 +29,7 @@ const RenameChannelModalContent = ({ handleCloseModal }) => {
     validationSchema: object({
       name: string()
         .trim()
-        .notOneOf(channelNames, t('errors.alreadyExists')),
+        .notOneOf(channelNames, t('modals.errors.alreadyExists')),
     }),
     onSubmit: async (values, { resetForm }) => {
       const data = {
@@ -42,7 +42,7 @@ const RenameChannelModalContent = ({ handleCloseModal }) => {
         toast.error(t('errors.connectionError'));
         return;
       }
-      toast.success(t('channelRenamed'));
+      toast.success(t('modals.renameChannel.channelRenamed'));
       resetForm();
       handleCloseModal();
     },
@@ -51,13 +51,13 @@ const RenameChannelModalContent = ({ handleCloseModal }) => {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>{t('title')}</Modal.Title>
+        <Modal.Title>{t('modals.renameChannel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="name" visuallyHidden>
-              {t('label')}
+              {t('modals.renameChannel.label')}
             </Form.Label>
             <Form.Control
               className="mb-3"
@@ -65,7 +65,7 @@ const RenameChannelModalContent = ({ handleCloseModal }) => {
               isInvalid={Boolean(formik.errors.name)}
               name="name"
               onChange={formik.handleChange}
-              placeholder={t('placeholder')}
+              placeholder={t('modals.renameChannel.placeholder')}
               ref={inputRef}
               required
               value={formik.values.name}
@@ -79,14 +79,14 @@ const RenameChannelModalContent = ({ handleCloseModal }) => {
               onClick={handleCloseModal}
               variant="secondary"
             >
-              {t('cancel')}
+              {t('modals.renameChannel.cancel')}
             </Button>
             <Button
               disabled={formik.isSubmitting || !isEmpty(formik.errors) || !formik.dirty}
               type="submit"
               variant="primary"
             >
-              {t('submit')}
+              {t('modals.renameChannel.submit')}
             </Button>
           </Modal.Footer>
         </Form>

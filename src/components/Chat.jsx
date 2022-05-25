@@ -14,7 +14,7 @@ import Messages from './Chat/Messages.jsx';
 const Chat = () => {
   const api = useContext(ApiContext);
   const dispatch = useDispatch();
-  const { t } = useTranslation('translation', { keyPrefix: 'chatPage' });
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetch = async () => {

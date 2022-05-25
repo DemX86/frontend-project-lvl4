@@ -12,7 +12,7 @@ const RemoveChannelModalContent = ({ handleCloseModal }) => {
   const api = useContext(ApiContext);
   const modalChannelId = useSelector(selectors.selectModalChannelId);
   const channelToRemove = useSelector(selectors.selectModalChannel);
-  const { t } = useTranslation('translation', { keyPrefix: 'modals.removeChannel' });
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {},
@@ -24,7 +24,7 @@ const RemoveChannelModalContent = ({ handleCloseModal }) => {
         toast.error(t('errors.connectionError'));
         return;
       }
-      toast.success(t('channelRemoved'));
+      toast.success(t('modals.removeChannel.channelRemoved'));
       handleCloseModal();
     },
   });
@@ -32,11 +32,11 @@ const RemoveChannelModalContent = ({ handleCloseModal }) => {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>{t('title')}</Modal.Title>
+        <Modal.Title>{t('modals.removeChannel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
-          {t('confirm')}
+          {t('modals.removeChannel.confirm')}
           &nbsp;
           <strong>{channelToRemove?.name}</strong>
           ?
@@ -47,14 +47,14 @@ const RemoveChannelModalContent = ({ handleCloseModal }) => {
               onClick={handleCloseModal}
               variant="secondary"
             >
-              {t('cancel')}
+              {t('modals.removeChannel.cancel')}
             </Button>
             <Button
               disabled={formik.isSubmitting}
               type="submit"
               variant="danger"
             >
-              {t('submit')}
+              {t('modals.removeChannel.submit')}
             </Button>
           </Modal.Footer>
         </Form>

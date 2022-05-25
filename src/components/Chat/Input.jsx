@@ -17,7 +17,7 @@ const Input = () => {
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const activeChannelId = useSelector(selectors.selectActiveChannelId);
-  const { t } = useTranslation('translation', { keyPrefix: 'chatPage' });
+  const { t } = useTranslation();
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -52,8 +52,8 @@ const Input = () => {
             autoComplete="off"
             id="body"
             name="body"
-            placeholder={t('placeholder')}
-            aria-label={t('ariaLabel')}
+            placeholder={t('chatPage.placeholder')}
+            aria-label={t('chatPage.ariaLabel')}
             ref={inputRef}
             onChange={formik.handleChange}
             value={formik.values.body}
@@ -62,7 +62,7 @@ const Input = () => {
             disabled={formik.isSubmitting || !formik.dirty}
             type="submit"
           >
-            {t('send')}
+            {t('chatPage.send')}
           </Button>
         </InputGroup>
       </Form>

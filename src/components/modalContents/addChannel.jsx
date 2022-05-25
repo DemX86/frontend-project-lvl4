@@ -13,7 +13,7 @@ import selectors from '../../slices/selectors.js';
 const AddChannelModalContent = ({ handleCloseModal }) => {
   const api = useContext(ApiContext);
   const channelNames = useSelector(selectors.selectChannelNames);
-  const { t } = useTranslation('translation', { keyPrefix: 'modals.addChannel' });
+  const { t } = useTranslation();
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -27,7 +27,7 @@ const AddChannelModalContent = ({ handleCloseModal }) => {
     validationSchema: object({
       name: string()
         .trim()
-        .notOneOf(channelNames, t('errors.alreadyExists')),
+        .notOneOf(channelNames, t('modals.errors.alreadyExists')),
     }),
     onSubmit: async (values, { resetForm }) => {
       const data = { name: values.name.trim() };
@@ -37,7 +37,7 @@ const AddChannelModalContent = ({ handleCloseModal }) => {
         toast.error(t('errors.connectionError'));
         return;
       }
-      toast.success(t('channelCreated'));
+      toast.success(t('modals.addChannel.channelCreated'));
       resetForm();
       handleCloseModal();
     },
@@ -46,13 +46,13 @@ const AddChannelModalContent = ({ handleCloseModal }) => {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>{t('title')}</Modal.Title>
+        <Modal.Title>{t('modals.addChannel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="name" visuallyHidden>
-              {t('label')}
+              {t('modals.addChannel.label')}
             </Form.Label>
             <Form.Control
               className="mb-3"
@@ -60,7 +60,7 @@ const AddChannelModalContent = ({ handleCloseModal }) => {
               isInvalid={Boolean(formik.errors.name)}
               name="name"
               onChange={formik.handleChange}
-              placeholder={t('placeholder')}
+              placeholder={t('modals.addChannel.placeholder')}
               ref={inputRef}
               required
               value={formik.values.name}
@@ -74,14 +74,14 @@ const AddChannelModalContent = ({ handleCloseModal }) => {
               onClick={handleCloseModal}
               variant="secondary"
             >
-              {t('cancel')}
+              {t('modals.addChannel.cancel')}
             </Button>
             <Button
               disabled={formik.isSubmitting || !isEmpty(formik.errors) || !formik.dirty}
               type="submit"
               variant="primary"
             >
-              {t('submit')}
+              {t('modals.addChannel.submit')}
             </Button>
           </Modal.Footer>
         </Form>

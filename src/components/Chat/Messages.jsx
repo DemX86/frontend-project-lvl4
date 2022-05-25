@@ -7,7 +7,7 @@ import selectors from '../../slices/selectors.js';
 const Messages = () => {
   const channel = useSelector(selectors.selectActiveChannel);
   const messages = useSelector(selectors.selectActiveChannelMessages);
-  const { t } = useTranslation('translation', { keyPrefix: 'chatPage' });
+  const { t } = useTranslation();
 
   const messagesBottomRef = useRef(null);
   useEffect(() => {
@@ -22,7 +22,7 @@ const Messages = () => {
       <div className="bg-light mb-3 px-4 py-2 shadow-sm">
         <p className="m-0">{channel.name}</p>
         <span className="small text-muted">
-          {t('messagesCount.key', { count: messages.length })}
+          {t('chatPage.messagesCount.key', { count: messages.length })}
         </span>
       </div>
     );
@@ -32,7 +32,7 @@ const Messages = () => {
     if (messages.length === 0) {
       return (
         <div className="h-100 d-flex align-items-center justify-content-center">
-          <span className="small text-muted">{t('empty')}</span>
+          <span className="small text-muted">{t('chatPage.empty')}</span>
         </div>
       );
     }

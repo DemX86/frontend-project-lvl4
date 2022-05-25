@@ -1,7 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
 
-const connectionError = 'Ошибка соединения';
-
 export default {
   translation: {
     navbar: {
@@ -17,7 +15,6 @@ export default {
       signupLink: 'Регистрация',
       errors: {
         submitError: 'Неверные имя пользователя или пароль',
-        connectionError,
       },
     },
     signupPage: {
@@ -34,7 +31,6 @@ export default {
         usernameLength: 'От 3 до 20 символов',
         passwordMin: 'Не менее 6 символов',
         passwordsMatch: 'Пароли должны совпадать',
-        connectionError,
       },
     },
     chatPage: {
@@ -51,9 +47,6 @@ export default {
       placeholder: 'Введите сообщение…',
       ariaLabel: 'Новое сообщение',
       send: 'Отправить',
-      errors: {
-        connectionError,
-      },
     },
     notFoundPage: {
       notFound: 'Страница не найдена',
@@ -67,10 +60,6 @@ export default {
         placeholder: 'Введите название нового канала',
         cancel: 'Отмена',
         submit: 'Отправить',
-        errors: {
-          alreadyExists: 'Канал с таким именем уже существует',
-          connectionError,
-        },
         channelCreated: 'Канал создан',
       },
       renameChannel: {
@@ -79,10 +68,6 @@ export default {
         placeholder: 'Введите новое название канала',
         cancel: 'Отмена',
         submit: 'Отправить',
-        errors: {
-          alreadyExists: 'Канал с таким именем уже существует',
-          connectionError,
-        },
         channelRenamed: 'Канал переименован',
       },
       removeChannel: {
@@ -90,11 +75,14 @@ export default {
         confirm: 'Вы действительно хотите удалить канал',
         cancel: 'Отмена',
         submit: 'Удалить',
-        errors: {
-          connectionError,
-        },
         channelRemoved: 'Канал удалён',
       },
+      errors: {
+        alreadyExists: 'Канал с таким именем уже существует',
+      },
+    },
+    errors: {
+      connectionError: 'Ошибка соединения',
     },
   },
 };

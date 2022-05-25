@@ -25,7 +25,7 @@ const Login = () => {
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { t } = useTranslation('translation', { keyPrefix: 'loginPage' });
+  const { t } = useTranslation();
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -61,19 +61,19 @@ const Login = () => {
       <Row className="h-100 justify-content-center align-content-center">
         <Col md={3}>
           <Form className="mb-2" onSubmit={formik.handleSubmit}>
-            <h1 className="text-center mb-4">{t('title')}</h1>
+            <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
 
             <Form.FloatingLabel
               className="mb-3"
               controlId="username"
-              label={t('username')}
+              label={t('loginPage.username')}
             >
               <Form.Control
                 isInvalid={isSubmitFailed}
                 name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder={t('username')}
+                placeholder={t('loginPage.username')}
                 ref={inputRef}
                 required
                 value={formik.values.username}
@@ -83,20 +83,20 @@ const Login = () => {
             <Form.FloatingLabel
               className="mb-3"
               controlId="password"
-              label={t('password')}
+              label={t('loginPage.password')}
             >
               <Form.Control
                 isInvalid={isSubmitFailed}
                 name="password"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder={t('password')}
+                placeholder={t('loginPage.password')}
                 required
                 type="password"
                 value={formik.values.password}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {isSubmitFailed ? t('errors.submitError') : null}
+                {isSubmitFailed ? t('loginPage.errors.submitError') : null}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 
@@ -107,16 +107,16 @@ const Login = () => {
               type="submit"
               variant="primary"
             >
-              {t('button')}
+              {t('loginPage.button')}
             </Button>
           </Form>
 
           <div className="text-center">
             <span>
-              {t('noAccount')}
+              {t('loginPage.noAccount')}
               &nbsp;
             </span>
-            <Link to={routes.appSignupPath()}>{t('signupLink')}</Link>
+            <Link to={routes.appSignupPath()}>{t('loginPage.signupLink')}</Link>
           </div>
         </Col>
       </Row>

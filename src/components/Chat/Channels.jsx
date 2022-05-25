@@ -18,7 +18,7 @@ const Channels = () => {
   const dispatch = useDispatch();
   const channels = useSelector(selectors.selectChannels);
   const activeChannelId = useSelector(selectors.selectActiveChannelId);
-  const { t } = useTranslation('translation', { keyPrefix: 'chatPage' });
+  const { t } = useTranslation();
 
   const handleSwitchChannel = (channelId) => () => {
     dispatch(channelActions.setActiveChannelId(channelId));
@@ -46,7 +46,7 @@ const Channels = () => {
   return (
     <Col className="border-end" md={2}>
       <Stack className="mt-3 mb-2" direction="horizontal">
-        <span className="ms-1 mb-0"><strong>{t('channels')}</strong></span>
+        <span className="ms-1 mb-0"><strong>{t('chatPage.channels')}</strong></span>
         <Button
           className="ms-auto"
           onClick={handleShowModal('addChannel')}
@@ -69,7 +69,7 @@ const Channels = () => {
                     split
                     variant="outline-secondary"
                   >
-                    <span className="visually-hidden">{t('channelControl')}</span>
+                    <span className="visually-hidden">{t('chatPage.channelControl')}</span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item

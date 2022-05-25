@@ -26,7 +26,7 @@ const Signup = () => {
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { t } = useTranslation('translation', { keyPrefix: 'signupPage' });
+  const { t } = useTranslation();
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -44,15 +44,15 @@ const Signup = () => {
     },
     validationSchema: object({
       username: string()
-        .required(t('errors.required'))
-        .min(3, t('errors.usernameLength'))
-        .max(20, t('errors.usernameLength')),
+        .required(t('signupPage.errors.required'))
+        .min(3, t('signupPage.errors.usernameLength'))
+        .max(20, t('signupPage.errors.usernameLength')),
       password: string()
-        .required(t('errors.required'))
-        .min(6, t('errors.passwordMin')),
+        .required(t('signupPage.errors.required'))
+        .min(6, t('signupPage.errors.passwordMin')),
       confirmPassword: string()
-        .required(t('errors.required'))
-        .oneOf([ref('password')], t('errors.passwordsMatch')),
+        .required(t('signupPage.errors.required'))
+        .oneOf([ref('password')], t('signupPage.errors.passwordsMatch')),
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
@@ -80,39 +80,39 @@ const Signup = () => {
       <Row className="h-100 justify-content-center align-content-center">
         <Col md={3}>
           <Form className="mb-2" onSubmit={formik.handleSubmit}>
-            <h1 className="text-center mb-4">{t('title')}</h1>
+            <h1 className="text-center mb-4">{t('signupPage.title')}</h1>
 
             <Form.FloatingLabel
               className="mb-3"
               controlId="username"
-              label={t('username')}
+              label={t('signupPage.username')}
             >
               <Form.Control
                 isInvalid={isInvalidUsername || isSubmitFailed}
                 name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder={t('username')}
+                placeholder={t('signupPage.username')}
                 ref={inputRef}
                 required
                 value={formik.values.username}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {isSubmitFailed ? t('submitError') : formik.errors.username}
+                {isSubmitFailed ? t('signupPage.submitError') : formik.errors.username}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 
             <Form.FloatingLabel
               className="mb-3"
               controlId="password"
-              label={t('password')}
+              label={t('signupPage.password')}
             >
               <Form.Control
                 isInvalid={isInvalidPassword}
                 name="password"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder={t('password')}
+                placeholder={t('signupPage.password')}
                 required
                 type="password"
                 value={formik.values.password}
@@ -125,14 +125,14 @@ const Signup = () => {
             <Form.FloatingLabel
               className="mb-3"
               controlId="confirmPassword"
-              label={t('confirmPassword')}
+              label={t('signupPage.confirmPassword')}
             >
               <Form.Control
                 isInvalid={isInvalidConfirmPassword}
                 name="confirmPassword"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                placeholder={t('confirmPassword')}
+                placeholder={t('signupPage.confirmPassword')}
                 required
                 type="password"
                 value={formik.values.confirmPassword}
@@ -149,16 +149,16 @@ const Signup = () => {
               type="submit"
               variant="primary"
             >
-              {t('button')}
+              {t('signupPage.button')}
             </Button>
           </Form>
 
           <div className="text-center">
             <span>
-              {t('hasAccount')}
+              {t('signupPage.hasAccount')}
               &nbsp;
             </span>
-            <Link to={routes.appLoginPath()}>{t('loginLink')}</Link>
+            <Link to={routes.appLoginPath()}>{t('signupPage.loginLink')}</Link>
           </div>
         </Col>
       </Row>
