@@ -7,21 +7,26 @@ import {
   Row,
   Spinner,
 } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 import ApiContext from '../contexts/api.js';
+import AuthContext from '../contexts/auth.js';
 import { channelActions } from '../slices/channelsDataSlice.js';
 
 import Channels from './Chat/Channels.jsx';
 import Input from './Chat/Input.jsx';
 import Messages from './Chat/Messages.jsx';
+import routes from '../routes.js';
 
 const Chat = () => {
   const [isLoading, setLoading] = useState(false);
 
   const api = useContext(ApiContext);
+  const auth = useContext(AuthContext);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -33,6 +38,11 @@ const Chat = () => {
     setLoading(true);
     fetch()
       .catch((error) => {
+        if (error.isAxiosError && error.response.status === 401) {
+          auth.logOut();
+          navigate(routes.appLoginPath());
+          return;
+        }
         console.error(error);
         toast.error(t('errors.connectionError'));
       });
