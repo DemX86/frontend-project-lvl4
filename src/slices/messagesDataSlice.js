@@ -16,7 +16,7 @@ const messagesDataSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(channelActions.setChannels, (state, action) => {
+      .addCase(channelActions.setInitialData, (state, action) => {
         const { messages } = action.payload;
         state.messages = messages;
       })

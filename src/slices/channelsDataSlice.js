@@ -11,7 +11,7 @@ const channelsDataSlice = createSlice({
     activeChannelId: null,
   },
   reducers: {
-    setChannels: (state, action) => {
+    setInitialData: (state, action) => {
       const { channels, currentChannelId } = action.payload;
       state.channels = channels;
       state.activeChannelId = currentChannelId;

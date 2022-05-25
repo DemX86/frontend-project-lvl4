@@ -19,7 +19,7 @@ const Chat = () => {
   useEffect(() => {
     const fetch = async () => {
       const initialData = await api.fetchInitialData();
-      dispatch(channelActions.setChannels(initialData));
+      dispatch(channelActions.setInitialData(initialData));
     };
     fetch()
       .catch((error) => {
