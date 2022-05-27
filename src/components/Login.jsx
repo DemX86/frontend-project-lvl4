@@ -1,9 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import {
   Button,
   Col,
@@ -21,7 +16,6 @@ import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const Login = () => {
-  const [isSubmitFailed, setSubmitFailed] = useState(false);
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -40,7 +34,7 @@ const Login = () => {
       username: '',
       password: '',
     },
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values, { setErrors, resetForm }) => {
       try {
         const user = await api.login(values);
         auth.logIn(user);
@@ -48,7 +42,7 @@ const Login = () => {
         navigate(routes.appRootPath());
       } catch (error) {
         if (error.isAxiosError && error.response.status === 401) {
-          setSubmitFailed(true);
+          setErrors({ submit: t('loginPage.errors.submit') });
           return;
         }
         toast.error(t('errors.connectionError'));
@@ -69,7 +63,7 @@ const Login = () => {
               label={t('loginPage.username')}
             >
               <Form.Control
-                isInvalid={isSubmitFailed}
+                isInvalid={formik.errors.submit}
                 name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -86,7 +80,7 @@ const Login = () => {
               label={t('loginPage.password')}
             >
               <Form.Control
-                isInvalid={isSubmitFailed}
+                isInvalid={formik.errors.submit}
                 name="password"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -96,7 +90,7 @@ const Login = () => {
                 value={formik.values.password}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {isSubmitFailed ? t('loginPage.errors.submitError') : null}
+                {formik.errors.submit}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 

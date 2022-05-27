@@ -1,5 +1,3 @@
-/* eslint-disable no-template-curly-in-string */
-
 export default {
   translation: {
     navbar: {
@@ -14,7 +12,7 @@ export default {
       noAccount: 'Нет аккаунта?',
       signupLink: 'Регистрация',
       errors: {
-        submitError: 'Неверные имя пользователя или пароль',
+        submit: 'Неверные имя пользователя или пароль',
       },
     },
     signupPage: {
@@ -25,12 +23,12 @@ export default {
       button: 'Зарегистрироваться',
       hasAccount: 'Уже зарегистрированы?',
       loginLink: 'Войдите',
-      submitError: 'Это имя пользователя занято',
       errors: {
         required: 'Поле обязательно к заполнению',
         usernameLength: 'От 3 до 20 символов',
         passwordMin: 'Не менее 6 символов',
         passwordsMatch: 'Пароли должны совпадать',
+        submit: 'Это имя пользователя занято',
       },
     },
     chatPage: {

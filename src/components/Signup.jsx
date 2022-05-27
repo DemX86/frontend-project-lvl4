@@ -1,9 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import {
   Button,
   Col,
@@ -22,7 +17,6 @@ import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const Signup = () => {
-  const [isSubmitFailed, setSubmitFailed] = useState(false);
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -54,7 +48,7 @@ const Signup = () => {
         .required(t('signupPage.errors.required'))
         .oneOf([ref('password')], t('signupPage.errors.passwordsMatch')),
     }),
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values, { setErrors, resetForm }) => {
       try {
         const user = await api.signup(values);
         auth.logIn(user);
@@ -62,7 +56,7 @@ const Signup = () => {
         navigate(routes.appRootPath());
       } catch (error) {
         if (error.isAxiosError && error.response.status === 409) {
-          setSubmitFailed(true);
+          setErrors({ submit: t('signupPage.errors.submit') });
           return;
         }
         toast.error(t('errors.connectionError'));
@@ -88,7 +82,7 @@ const Signup = () => {
               label={t('signupPage.username')}
             >
               <Form.Control
-                isInvalid={isInvalidUsername || isSubmitFailed}
+                isInvalid={isInvalidUsername || formik.errors.submit}
                 name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -98,7 +92,7 @@ const Signup = () => {
                 value={formik.values.username}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {isSubmitFailed ? t('signupPage.submitError') : formik.errors.username}
+                {formik.errors.submit || formik.errors.username}
               </Form.Control.Feedback>
             </Form.FloatingLabel>
 
