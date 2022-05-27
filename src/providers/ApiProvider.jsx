@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import ApiContext from '../contexts/api.js';
+import AuthContext from '../contexts/auth.js';
 import routes from '../routes.js';
 
 const socketWithAck = (fn) => (...args) => (
@@ -26,6 +27,8 @@ const socketWithAck = (fn) => (...args) => (
 );
 
 const ApiProvider = ({ children, socket }) => {
+  const auth = useContext(AuthContext);
+
   const ax = axios.create();
 
   const login = async (data) => {
@@ -41,7 +44,7 @@ const ApiProvider = ({ children, socket }) => {
   };
 
   const fetchInitialData = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = auth.getUser();
     ax.defaults.headers.common.Authorization = `Bearer ${user.token}`;
 
     const url = routes.apiDataPath();

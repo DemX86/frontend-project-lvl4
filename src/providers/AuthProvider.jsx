@@ -3,7 +3,9 @@ import React, { useMemo, useState } from 'react';
 import AuthContext from '../contexts/auth.js';
 
 const AuthProvider = ({ children }) => {
-  const initialState = Boolean(localStorage.getItem('user'));
+  const getUser = () => JSON.parse(localStorage.getItem('user'));
+
+  const initialState = Boolean(getUser());
   const [loggedIn, setLoggedIn] = useState(initialState);
 
   const logIn = (user) => {
@@ -16,16 +18,11 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
-  const getUsername = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user.username;
-  };
-
   const auth = useMemo(() => ({
     loggedIn,
     logIn,
     logOut,
-    getUsername,
+    getUser,
   }), [loggedIn]);
 
   return (

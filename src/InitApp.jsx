@@ -4,8 +4,6 @@ import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { initReactI18next } from 'react-i18next';
-
-import ApiProvider from './providers/ApiProvider.jsx';
 import App from './components/App.jsx';
 import resources from './locales/index.js';
 import store from './slices/index.js';
@@ -47,9 +45,7 @@ const InitApp = async (socket) => {
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <ReduxProvider store={store}>
-          <ApiProvider socket={socket}>
-            <App />
-          </ApiProvider>
+          <App socket={socket} />
         </ReduxProvider>
       </ErrorBoundary>
     </RollbarProvider>

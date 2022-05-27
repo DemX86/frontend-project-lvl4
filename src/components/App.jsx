@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import ApiProvider from '../providers/ApiProvider.jsx';
 import AuthContext from '../contexts/auth.js';
 import AuthProvider from '../providers/AuthProvider.jsx';
 import Chat from './Chat.jsx';
@@ -23,30 +24,32 @@ const RequireAuth = ({ children }) => {
   return auth.loggedIn ? children : <Navigate to={routes.appLoginPath()} />;
 };
 
-const App = () => (
+const App = ({ socket }) => (
   <AuthProvider>
-    <BrowserRouter>
-      <div className="h-100 d-flex flex-column">
-        <Navbar bg="white" expand="lg" variant="light" className="shadow-sm">
-          <NavbarItems />
-        </Navbar>
-        <Routes>
-          <Route
-            path={routes.appRootPath()}
-            element={(
-              <RequireAuth>
-                <Chat />
-              </RequireAuth>
-            )}
-          />
-          <Route path={routes.appLoginPath()} element={<Login />} />
-          <Route path={routes.appSignupPath()} element={<Signup />} />
-          <Route path={routes.appAnyPath()} element={<NotFound />} />
-        </Routes>
-      </div>
-      <ModalWindow />
-      <ToastContainer />
-    </BrowserRouter>
+    <ApiProvider socket={socket}>
+      <BrowserRouter>
+        <div className="h-100 d-flex flex-column">
+          <Navbar bg="white" expand="lg" variant="light" className="shadow-sm">
+            <NavbarItems />
+          </Navbar>
+          <Routes>
+            <Route
+              path={routes.appRootPath()}
+              element={(
+                <RequireAuth>
+                  <Chat />
+                </RequireAuth>
+              )}
+            />
+            <Route path={routes.appLoginPath()} element={<Login />} />
+            <Route path={routes.appSignupPath()} element={<Signup />} />
+            <Route path={routes.appAnyPath()} element={<NotFound />} />
+          </Routes>
+        </div>
+        <ModalWindow />
+        <ToastContainer />
+      </BrowserRouter>
+    </ApiProvider>
   </AuthProvider>
 );
 

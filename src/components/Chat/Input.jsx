@@ -29,10 +29,11 @@ const Input = () => {
       body: '',
     },
     onSubmit: async (values, { resetForm }) => {
+      const user = auth.getUser();
       const data = {
         body: filter.clean(values.body),
         channelId: activeChannelId,
-        username: auth.getUsername(),
+        username: user.username,
       };
       try {
         await api.sendMessage(data);
