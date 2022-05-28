@@ -12,6 +12,11 @@ const selectChannels = (state) => state.channelsData.channels;
 
 const selectActiveChannelId = (state) => state.channelsData.activeChannelId;
 
+const selectInitialLoadingInfo = (state) => ({
+  isLoading: state.channelsData.isLoading,
+  loadingError: state.channelsData.loadingError,
+});
+
 const selectActiveChannel = createSelector(
   [selectChannels, selectActiveChannelId],
   (channels, activeChannelId) => (
@@ -47,6 +52,7 @@ export default {
   selectModalChannelId,
   selectChannels,
   selectActiveChannelId,
+  selectInitialLoadingInfo,
   selectActiveChannel,
   selectModalChannel,
   selectChannelNames,

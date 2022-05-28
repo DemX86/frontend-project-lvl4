@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useContext, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Col,
   Container,
@@ -11,42 +11,39 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-import ApiContext from '../contexts/api.js';
-import AuthContext from '../contexts/auth.js';
-import { channelActions } from '../slices/channelsDataSlice.js';
-
 import Channels from './Chat/Channels.jsx';
 import Input from './Chat/Input.jsx';
 import Messages from './Chat/Messages.jsx';
+import ApiContext from '../contexts/api.js';
+import AuthContext from '../contexts/auth.js';
+import { channelActions, fetchInitialDataThunk } from '../slices/channelsDataSlice.js';
 import routes from '../routes.js';
+import selectors from '../slices/selectors.js';
 
 const Chat = () => {
-  const [isLoading, setLoading] = useState(false);
-
   const api = useContext(ApiContext);
   const auth = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLoading, loadingError } = useSelector(selectors.selectInitialLoadingInfo);
   const { t } = useTranslation();
 
   useEffect(() => {
-    const fetch = async () => {
-      const initialData = await api.fetchInitialData();
-      dispatch(channelActions.setInitialData(initialData));
-      setLoading(false);
-    };
-    setLoading(true);
-    fetch()
-      .catch((error) => {
-        if (error.isAxiosError && error.response.status === 401) {
-          auth.logOut();
-          navigate(routes.appLoginPath());
-          return;
-        }
-        console.error(error);
-        toast.error(t('errors.connectionError'));
-      });
+    dispatch(fetchInitialDataThunk(api));
   }, []);
+
+  useEffect(() => {
+    if (loadingError) {
+      if (loadingError.message === 'Request failed with status code 401') {
+        auth.logOut();
+        navigate(routes.appLoginPath());
+      } else {
+        console.error(loadingError);
+        toast.error(t('errors.connectionError'));
+      }
+      dispatch(channelActions.resetInitialLoadingInfo({}));
+    }
+  }, [loadingError]);
 
   const renderContent = () => {
     if (isLoading) {

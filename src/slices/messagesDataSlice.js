@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-import { channelActions } from './channelsDataSlice.js';
+import { channelActions, fetchInitialDataThunk } from './channelsDataSlice.js';
 
 const messagesDataSlice = createSlice({
   name: 'messagesData',
@@ -16,7 +16,7 @@ const messagesDataSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(channelActions.setInitialData, (state, action) => {
+      .addCase(fetchInitialDataThunk.fulfilled, (state, action) => {
         const { messages } = action.payload;
         state.messages = messages;
       })

@@ -1,21 +1,23 @@
 /* eslint-disable no-param-reassign */
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const DEFAULT_CHANNEL_ID = 1;
+
+const fetchInitialDataThunk = createAsyncThunk(
+  'fetchInitialData',
+  async (api) => api.fetchInitialData(),
+);
 
 const channelsDataSlice = createSlice({
   name: 'channelsData',
   initialState: {
     channels: [],
     activeChannelId: null,
+    isLoading: false,
+    loadingError: null,
   },
   reducers: {
-    setInitialData: (state, action) => {
-      const { channels, currentChannelId } = action.payload;
-      state.channels = channels;
-      state.activeChannelId = currentChannelId;
-    },
     addChannel: (state, action) => {
       const newChannel = action.payload;
       state.activeChannelId = newChannel.id;
@@ -34,8 +36,31 @@ const channelsDataSlice = createSlice({
     setActiveChannelId: (state, action) => {
       state.activeChannelId = action.payload;
     },
+    resetInitialLoadingInfo: (state) => {
+      state.isLoading = false;
+      state.loadingError = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchInitialDataThunk.pending, (state) => {
+        state.isLoading = true;
+        state.loadingError = null;
+      })
+      .addCase(fetchInitialDataThunk.fulfilled, (state, action) => {
+        const { channels, currentChannelId } = action.payload;
+        state.channels = channels;
+        state.activeChannelId = currentChannelId;
+        state.isLoading = false;
+        state.loadingError = null;
+      })
+      .addCase(fetchInitialDataThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.loadingError = action.error;
+      });
   },
 });
 
+export { fetchInitialDataThunk };
 export const { actions: channelActions } = channelsDataSlice;
 export default channelsDataSlice.reducer;
