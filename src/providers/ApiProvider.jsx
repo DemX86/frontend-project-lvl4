@@ -33,13 +33,13 @@ const ApiProvider = ({ children, socket }) => {
 
   const login = async (data) => {
     const url = routes.apiLoginPath();
-    const response = await axios.post(url, data);
+    const response = await ax.post(url, data);
     return response.data;
   };
 
   const signup = async (data) => {
     const url = routes.apiSignupPath();
-    const response = await axios.post(url, data);
+    const response = await ax.post(url, data);
     return response.data;
   };
 
